@@ -1,0 +1,43 @@
+<div class="w-100 mb-2">
+  <span class="h-0">
+    <span class="h5 mb-0">
+      {{ 'accountSettings.security.header' | translate }}
+    </span>
+  </span>
+</div>
+
+<div class="mt-4">
+  <span class="mt-4 field-description">
+    {{ 'accountSettings.security.entries.passwordReset.description' | translate }}
+  </span>
+</div>
+<div class="row mt-2 mb-3 mx-auto">
+  <div class="col-3 p-0">
+    <button
+      (click)="requestPasswordReset()"
+      class="btn btn-dark btn-block mw-100"
+    >
+      {{ 'accountSettings.security.entries.passwordReset.reset' | translate }}
+    </button>
+  </div>
+</div>
+
+<div class="row mx-auto w-100 mt-5">
+  <span class="text-center danger-text">
+ {{ 'accountSettings.security.entries.dangerZone.warning' | translate }}
+</span>
+  <div class="danger-zone"></div>
+</div>
+<div class="mt-3">
+  <span class="field-description field-account-delete">
+    {{ 'accountSettings.security.entries.dangerZone.description' | translate }}
+  </span>
+</div>
+<div class="row mt-2 mb-3 mx-auto">
+  <div class="col-3 p-0">
+    <button class="btn btn-danger btn-block mw-100"
+    >
+      {{ 'accountSettings.security.entries.dangerZone.delete' | translate }}
+    </button>
+  </div>
+</div>

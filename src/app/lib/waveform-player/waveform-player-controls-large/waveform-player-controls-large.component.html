@@ -1,0 +1,105 @@
+<div class="waveform-player-controls-large w-100 d-flex flex-column">
+  <div class="waveform-player-controls-large-container pt-4">
+    <app-waveform-player
+      [projectVersion]="projectVersion"
+      [forceConnectGlobalAudioPlayer]="true"
+      [globalAudioPlayerVisibleOnSync]="false"
+      [class]="playerClass"
+      [loadingSpinnerDiameter]="38"
+      (play$)="play$.emit()"
+    ></app-waveform-player>
+  </div>
+  <div class="controls row w-100 pt-3 mx-auto">
+    <div class="p-0 col-12 col-md-2 controlsLeft overflow-hidden" [ngClass]="{'pb-2 pb-md-0': waveformPlayerMarkerService.marker.length}">
+      <div class="d-flex justify-content-between">
+        <div
+          class="controlButton px-0 py-3 border border-start-0 text-center"
+          [ngClass]="{'disabled pe-none': !waveformPlayer.active}"
+          (click)="waveformPlayer.play()"
+        >
+          <span *ngIf="waveformPlayer.globalAudioPlayer?.playing">
+            <i class="fa fa-pause"></i>
+          </span>
+          <span *ngIf="!waveformPlayer.globalAudioPlayer?.playing">
+            <i class="fa fa-play"></i>
+          </span>
+        </div>
+        <div class="d-flex d-md-none justify-content-sm-center pe-1">
+          <button
+            *ngIf="controls && projectVersion!.versionNumber >= lastVersion!.versionNumber"
+            #markerButton
+            role="button"
+            class="controlButton markerButton border-0 lh-1 p-2 me-1 bg-transparent w-auto shadow-none"
+            [ngClass]="{'disabled': !addMarkerButtonEnabled}"
+            [disabled]="!addMarkerButtonEnabled"
+            [matTooltip]="'waveformPlayerControlsLarge.addMarker.tooltip' | translate"
+            matTooltipPosition="below"
+            [matTooltipShowDelay]="150"
+            (mousedown)="markerTextInput.blur();addMarker()"
+            (click)="markerTextInput.focus()"
+          >
+            <i class="fa fa-filter"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="p-0 col-12 col-md-10 controlsRight d-flex justify-content-end align-items-center px-2 px-md-0" [ngClass]="{'pb-2 pb-md-0': waveformPlayerMarkerService.marker.length}">
+      <div class="me-md-2 d-flex flex-nowrap align-items-center justify-content-md-end w-100">
+        <div class="me-2">
+          <app-marker-chip-list
+            #markerList
+            [marker]="waveformPlayerMarkerService.marker"
+            [minWrap]="1"
+            [actions]="MARKER_LIST_ACTIONS"
+            (click$)="waveformPlayer.seekToMarker($event)"
+            (actionClick$)="markerActionClick($event)"
+          ></app-marker-chip-list>
+        </div>
+        <div
+          class="markerQuicknote d-flex flex-nowrap align-content-stretch w-100 ps-2 me-md-2 border border-dark rounded-1"
+          [ngClass]="{'d-none': projectVersion!.versionNumber >= lastVersion!.versionNumber || !markerList.selectedMarker}"
+        >
+          <div class="d-flex align-items-center">
+            <app-marker-chip
+              *ngIf="markerList.selectedMarker"
+              [color]="'#'+markerList.selectedMarker.color"
+              [content]="markerList.selectedMarker.start"
+              (click)="waveformPlayer.seekToMarker(markerList.selectedMarker)"
+            ></app-marker-chip>
+          </div>
+          <input
+            #markerTextInput
+            type="text"
+            class="markerQuicknoteInput small w-100 border-0 ms-1 p-1"
+            [placeholder]="'waveformPlayerControlsLarge.quicknoteInput.placeholder' | translate"
+            [value]="markerList.selectedMarker?.text || ''"
+            (change)="markerList.selectedMarker!.text = markerTextInput.value.trim()"
+            (keyup.escape)="markerTextInput.blur()"
+            (keyup.enter)="markerTextInput.blur()">
+          <button
+            class="markerQuicknoteAction py-0 align-middle border-0 bg-transparent text-nowrap"
+            (click)="addMarkerToChecklistClick([markerList.selectedMarker!])"
+          >
+            <i class="fa fa-arrow-right"></i>
+            <i class="fa fa-check-square fw-light"></i>
+          </button>
+        </div>
+        <button
+          *ngIf="controls && projectVersion!.versionNumber >= lastVersion!.versionNumber"
+          #markerButton
+          role="button"
+          class="controlButton markerButton border-0 lh-1 p-2 me-1 rounded-1 d-none d-md-block"
+          [ngClass]="{'disabled': !addMarkerButtonEnabled}"
+          [disabled]="!addMarkerButtonEnabled"
+          [matTooltip]="'waveformPlayerControlsLarge.addMarker.tooltip' | translate"
+          matTooltipPosition="below"
+          [matTooltipShowDelay]="150"
+          (mousedown)="markerTextInput.blur();addMarker()"
+          (click)="markerTextInput.focus()"
+        >
+          <i class="fa fa-filter"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

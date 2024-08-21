@@ -1,0 +1,21 @@
+.markerChipListContainer,
+.markerChip {
+  &.disabled {
+    filter: saturate(.41) grayscale(.2);
+  }
+}
+
+.user-icon {
+  height: 25px;
+  cursor: pointer;
+  transition: filter .2s;
+  filter: invert(0) brightness(1);
+
+  &.default-user-icon {
+    filter: invert(.3) brightness(1);
+  }
+
+  &:hover {
+    filter: invert(0) brightness(2);
+  }
+}

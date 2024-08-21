@@ -1,0 +1,67 @@
+.controls {
+
+  .controlsLeft {
+    .controlButton {
+      width: 53px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #0000001c;
+
+      &:hover {
+        background-color: var(--bs-gray-100);
+      }
+    }
+  }
+
+  .controlsRight {
+    .controlButton {
+      color: var(--bs-gray-900);
+      background-color: transparent;
+
+      &:hover {
+        color: var(--bs-black);
+        background-color: var(--bs-gray-200);
+      }
+
+      &.disabled {
+        background-color: transparent;
+        color: var(--bs-gray-600);
+        cursor: default;
+      }
+    }
+
+    .markerQuicknote {
+      max-width: 400px;
+
+      .markerDropdownButton {
+        cursor: pointer;
+      }
+
+      .markerQuicknoteInput {
+        outline: none;
+      }
+    }
+  }
+
+  .controlButton {
+    &.markerButton {
+      &.fading {
+        transition: color .8s, text-shadow .8s;
+      }
+    }
+  }
+}
+
+.markerQuicknoteAction,
+.action {
+  color: var(--bs-gray-800);
+
+  &:hover {
+    color: var(--bs-black);
+  }
+
+  &.markerDeleteAction {
+    &:hover {
+      color: var(--bs-danger);
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<div #container class="waveform-player w-100 position-relative d-flex flex-column align-items-center">
+
+  <div #zoomviewContainer
+       class="zoomview-container mb-3"
+       [ngClass]="{'d-none': !showZoomview, 'mb-3': showZoomview && showOverview}"
+       (contextmenu)="contextMenu($event)"
+  ></div>
+
+  <div #overviewContainer
+       class="overview-container"
+       [ngClass]="{'d-none': !showOverview}"
+       (contextmenu)="contextMenu($event)"
+  ></div>
+
+  <div class="overlay position-absolute bg-white d-flex align-items-center justify-content-center" [ngClass]="{'opacity-0 pe-none': !loading}">
+    <mat-spinner [diameter]="loadingSpinnerDiameter"></mat-spinner>
+  </div>
+</div>

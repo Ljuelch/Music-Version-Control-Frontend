@@ -1,0 +1,109 @@
+<div class="position-absolute overlay">
+  <div class="container">
+    <div class="register-container body-height row justify-content-center align-items-sm-center pb-sm-5">
+      <div class="container-x bg-white rounded px-5 py-4 col-sm-10 col-md-8 col-lg-7 col-xl-5 box-shadow">
+        <form (ngSubmit)="register($event)">
+          <div class="row mb-3">
+            <div class="col text-center">
+              <h2 class="user-select-none">{{ 'register.header' | translate }}</h2>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                [(ngModel)]="userData.username"
+                type="text"
+                class="w-100 form-control custom-width custom-height"
+                [placeholder]="'register.placeholder.username' | translate"
+                name="username"
+                autocomplete="username"
+                (ngModelChange)="cdr.detectChanges()">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                [(ngModel)]="userData.email"
+                type="email"
+                class="w-100 form-control custom-width custom-height"
+                [placeholder]="'register.placeholder.email' | translate"
+                name="email"
+                autocomplete="email"
+                (ngModelChange)="cdr.detectChanges()">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                [(ngModel)]="userData.password"
+                type="password"
+                class="w-100 form-control custom-width custom-height"
+                [placeholder]="'register.placeholder.password' | translate"
+                name="password"
+                autocomplete="new-password"
+                (ngModelChange)="cdr.detectChanges()">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <input
+                #passwordRepeatInput
+                type="password"
+                class="w-100 form-control custom-width custom-height"
+                [placeholder]="'register.placeholder.passwordRepeat' | translate"
+                name="password"
+                autocomplete="new-password"
+                (change)="cdr.detectChanges()">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-6">
+              <input
+                [(ngModel)]="userData.firstname"
+                type="text"
+                class="w-100 form-control custom-width custom-height"
+                [placeholder]="'register.placeholder.firstname' | translate"
+                name="firstname"
+                autocomplete="given-name"
+                (ngModelChange)="cdr.detectChanges()">
+            </div>
+            <div class="col-6">
+              <input
+                [(ngModel)]="userData.lastname"
+                type="text"
+                class="w-100 form-control custom-width custom-height"
+                [placeholder]="'register.placeholder.lastname' | translate"
+                name="lastname"
+                autocomplete="family-name"
+                (ngModelChange)="cdr.detectChanges()">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <div class="form-check custom-width p-0 w-100 d-flex align-items-center justify-content-center">
+                <mat-checkbox #agb id="acceptTerms" (change)="cdr.detectChanges()"></mat-checkbox>
+                <label class="form-check-label user-select-none" role="button" for="acceptTerms" (click)="agb.toggle()">
+                  {{ 'register.agb' | translate }}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <button class="w-100 btn btn-dark btn-block custom-width custom-height" [disabled]="this.evaluateForm() !== FormEvaluation.VALID">
+                {{ 'register.submit' | translate }}
+              </button>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <p class="text-center user-select-none">
+                {{ 'register.link.login.prefix' | translate }} <a routerLink="/login" (click)="gotoLogin()">{{ 'register.link.login.link' | translate }}</a>
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

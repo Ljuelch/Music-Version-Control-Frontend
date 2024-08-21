@@ -1,0 +1,231 @@
+<div class="container">
+  <div class="topBar bg-white rounded-bottom box-shadow pt-3 pb-2">
+    <div class="row mx-auto">
+      <div class="col-10">
+        <span class="h6">
+          {{ projectInfo.name }}
+        </span>
+      </div>
+      <div class="col-2">
+        <!-- TODO: menu -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container pt-3">
+  <app-version-timeline
+    [versions]="info.versions"
+    [selectedVersionNumber]="versionNumber"
+    [plusButtonDisabled]="isSpectator"
+    (versionClick)="gotoVersion($event)"
+    (plusClick)="openNewProjectVersionDialog()"
+  ></app-version-timeline>
+</div>
+
+<div class="container-fluid mt-2">
+  <div class="container">
+    <div class="bg-white rounded box-shadow">
+      <app-waveform-player-controls-large
+        [projectVersion]="currentVersion"
+        [lastVersion]="info.lastVersion"
+        [staticMarker]="staticMarker"
+        [controls]="!isSpectator"
+        (addMarkerToChecklist$)="addMarkerToChecklist($event)"
+      />
+    </div>
+  </div>
+
+  <div class="container mt-4" [ngClass]="{'d-none': !versionChangesTableComponent?.showTable}">
+    <div class="row">
+      <div class="versionChangesContainer col-12">
+        <div class="bg-white rounded box-shadow p-3">
+          <div class="row">
+            <div class="user-select-none title d-flex flex-row">
+              <span class="h-0">
+                <span class="d-flex align-items-center">
+                  <span class="h5 mb-0 me-1">
+                    {{ 'project.versionChanges.header' | translate }}
+                  </span>
+                  <span class="small fst-italic text-black-50 ms-2" *ngIf="!this.versionChangesTableComponent?.hasEntries">
+                    {{ 'project.versionChanges.noChanges' | translate }}
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div class="col-12 text-end z-1" [ngClass]="{'opacity-0 pe-none': !this.versionChangesTableComponent?.hasEntries}">
+              <i class="toggle fa fa-chevron-circle-up"
+                 [ngClass]="{'closed': !versionChangesContainerOpen, 'disabled pe-none': loading || versionChangesTableComponent?.loading}"
+                 (click)="toggleVersionChangesContainer()"></i>
+            </div>
+          </div>
+          <div #versionChangesTableContainer
+               class="versionChangesTableContainer overflow-y-hidden"
+               [ngClass]="{'mh-0': !versionChangesContainerOpen}"
+          >
+            <div class="pt-3" [ngClass]="{'d-none': !this.versionChangesTableComponent?.hasEntries}">
+              <app-version-changes-table
+                *ngIf="project_id && versionNumber"
+                [project_id]="project_id"
+                [versionNumber]="versionNumber"
+                [lastVersion]="info.lastVersion"
+              ></app-version-changes-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="leftSideContainer d-flex flex-column col-12 order-1 order-lg-0 pe-xl-2" [ngClass]="{'open col-lg-4': leftSideOpen, 'closed col-lg-1 pe-lg-0': !leftSideOpen}">
+
+        <div class="contributorsContainer order-1 order-lg-0 mt-4 mt-lg-0">
+          <div class="contributorsBox bg-white rounded box-shadow p-3 overflow-x-hidden">
+            <div class="titleVertical user-select-none w-0 h-0 ms-3 d-none d-lg-block z-1" [ngClass]="{'opacity-0': leftSideOpen, 'z-0': !leftSideOpen}">
+              {{ 'project.contributors.header' | translate }}
+            </div>
+            <div class="row mb-3">
+              <div class="user-select-none title d-flex flex-row">
+                <span class="h-0 d-none d-lg-block" [ngClass]="{'opacity-0': !leftSideOpen}">
+                  <span class="h5 mb-0">
+                    {{ 'project.contributors.header' | translate }}
+                  </span>
+                  <span class="titleLeftSideActionOpen ms-2 z-2" [ngClass]="{'opacity-0 pe-none': !leftSideOpen}">
+                    <i class="fa fa-plus" (click)="openContributorsUserSearchModal()" *ngIf="!isSpectator"></i>
+                  </span>
+                </span>
+                <span class="h5 mb-0 d-lg-none">
+                  {{ 'project.contributors.header' | translate }}
+                </span>
+                <span class="leftSideActionsMd w-100 text-end d-lg-none">
+                  <i class="fa fa-plus" (click)="openContributorsUserSearchModal()" *ngIf="!isSpectator"></i>
+                </span>
+              </div>
+              <div class="col-12 text-end z-1">
+                <i class="toggle fa fa-chevron-circle-left d-none d-lg-inline-block"
+                   [ngClass]="{'closed': !leftSideOpen}"
+                   (click)="toggleLeftSideContainer()"></i>
+                <div class="countClosed user-select-none h-0 ms-auto text-center text-muted mt-1 d-none d-lg-block" [ngClass]="{'opacity-0': leftSideOpen}">
+                  {{ projectContributorsTableComponent?.projectUsers?.length || 0 }}
+                </div>
+              </div>
+            </div>
+            <div class="leftSideTableContainer position-relative" [ngClass]="{'pe-none': !leftSideOpen}">
+              <app-project-contributors-table *ngIf="project_id" [project_id]="project_id"></app-project-contributors-table>
+              <div class="overlay bg-white position-absolute pe-none d-none d-lg-block" [ngClass]="{'opacity-0': leftSideOpen}"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filesContainer w-100 col-12 mt-4 order-0 order-lg-0" [ngClass]="{'col-lg-4': leftSideOpen, 'col-lg-1 pe-lg-0': !leftSideOpen}">
+          <div class="bg-white rounded box-shadow p-3 overflow-x-hidden">
+            <div class="titleVertical user-select-none w-0 h-0 ms-3 d-none d-lg-block z-1" [ngClass]="{'opacity-0': leftSideOpen}">
+              {{ 'project.files.header' | translate }}
+            </div>
+            <div class="row mb-2">
+              <div class="user-select-none title d-flex flex-row">
+              <span class="h-0 d-none d-lg-block" [ngClass]="{'opacity-0': !leftSideOpen}">
+                <span class="h5 mb-0">
+                  {{ 'project.files.header' | translate }}
+                </span>
+              </span>
+                <span class="h5 mb-0 d-lg-none">
+                {{ 'project.files.header' | translate }}
+              </span>
+              </div>
+              <div class="col-12 text-end z-1">
+                <i class="toggle fa fa-chevron-circle-left d-none d-lg-inline-block"
+                   [ngClass]="{'closed': !leftSideOpen}"
+                   (click)="toggleLeftSideContainer()"></i>
+                <div class="countClosed user-select-none h-0 ms-auto text-center text-muted mt-1 d-none d-lg-block" [ngClass]="{'opacity-0': leftSideOpen}">
+                  {{ projectStemsTableComponent?.projectStems?.length || 0 }}
+                </div>
+              </div>
+            </div>
+            <div class="leftSideTableContainer position-relative">
+              <div class="stemsContainer">
+                <div class="row w-100 mx-auto border-bottom flex-nowrap">
+                  <div class="selectAllStemsCheckboxContainer col-6 p-0 d-flex align-items-center text-nowrap">
+                    <mat-checkbox
+                      #selectAllStemsCheckbox
+                      class="selectAllStemsCheckbox"
+                      [disabled]="!projectStemsTableComponent?.projectStems?.length"
+                      [checked]="!!(projectStemsTableComponent?.allStemsSelected && projectStemsTableComponent?.projectStems?.length)"
+                      (change)="projectStemsTableComponent?.selectAllStems($event.checked)"
+                    ></mat-checkbox>
+                    <span class="user-select-none text-muted"
+                          (click)="projectStemsTableComponent?.selectAllStems(!selectAllStemsCheckbox.checked)"
+                    >
+                      {{ 'project.files.stems.header' | translate }}
+                    </span>
+                    <span class="ms-2 user-select-none text-nowrap fw-bold"
+                          *ngIf="projectStemsTableComponent?.selectedStems?.length"
+                          (click)="projectStemsTableComponent?.selectAllStems(!selectAllStemsCheckbox.checked)"
+                    >
+                      {{ projectStemsTableComponent?.selectedStems?.length }}
+                    </span>
+                  </div>
+                  <div class="actionsContainer col-6 d-flex align-items-center justify-content-end" [ngClass]="{'z-1': leftSideOpen}">
+                    <div class="actions d-flex flex-row column-gap-2">
+                      <i class="fa fa-scissors text-black me-1"
+                         role="button"
+                         [ngClass]="{'text-black-50': !projectStemsTableComponent?.showSplitNames, 'd-none': loading || !this.projectStemsTableComponent?.showStemsSplitNamesToggle}"
+                         (click)="projectStemsTableComponent?.toggleShowSplitNames()"></i>
+                      <i class="fa fa-upload"
+                         *ngIf="!loading && versionNumber && versionNumber === info.lastVersion?.versionNumber && !isSpectator"
+                         (click)="projectStemsTableComponent?.selectFiles()"
+                      ></i>
+                      <i class="fa fa-download"
+                         *ngIf="!loading && !isSpectator && projectStemsTableComponent?.projectStems?.length"
+                         (click)="downloadStems()"></i>
+                    </div>
+                  </div>
+                </div>
+                <div [ngClass]="{'pt-2': !projectStemsTableComponent?.projectStems?.length}">
+                  <app-project-stems-table
+                    *ngIf="project_id && versionNumber"
+                    [project_id]="project_id"
+                    [projectInfo]="projectInfo"
+                    [versionNumber]="versionNumber"
+                    [allowEditing]="!isSpectator"
+                  ></app-project-stems-table>
+                </div>
+              </div>
+              <div class="overlay bg-white position-absolute pe-none d-none d-lg-block" [ngClass]="{'opacity-0': leftSideOpen}"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="checklistContainer col-12 col-lg-8" [ngClass]="{'col-lg-11': !leftSideOpen}">
+        <div class="bg-white rounded box-shadow p-3">
+          <div class="row mb-3">
+            <div class="col-8 h5 mb-0 user-select-none">
+              {{ 'project.checklist.header' | translate }}
+            </div>
+            <div class="col-4 text-end">
+              <i class="plusButton fa fa-plus"
+                 *ngIf="versionNumber && versionNumber === info.lastVersion?.versionNumber && !isSpectator"
+                 [ngClass]="{'disabled pe-none': loading || !versionChecklistComponent || versionChecklistComponent.loading || versionChecklistComponent.updating || versionChecklistComponent.someEditing}"
+                 (click)="versionChecklistComponent?.newEntryInput()?.then()"></i>
+            </div>
+          </div>
+          <app-version-checklist
+            *ngIf="project_id && versionNumber"
+            [project_id]="project_id"
+            [versionNumber]="versionNumber"
+            [lastVersion]="info.lastVersion"
+            [actions]="CHECKLIST_ACTIONS"
+            [controls]="!isSpectator"
+            [allowEditing]="!isSpectator"
+            (actionClick$)="checklistActionClick($event)"
+            (markerClick$)="seekToMarker($event)"
+          ></app-version-checklist>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

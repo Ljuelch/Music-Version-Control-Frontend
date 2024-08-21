@@ -1,0 +1,20 @@
+<nav class="navbar navbarHeight bg-white box-shadow py-0 z-1" [ngClass]="{'sticky-top': sticky}">
+    <div class="row w-100 m-0 px-4">
+        <div class="col-3 px-0 d-flex justify-content-start align-items-center">
+            <div class="btn border-0 button-left button-search" *ngIf="authService.isSessionActive() && userSearch" (click)="openUserSearch()">
+                <i class="fa fa-search position-relative"></i>
+            </div>
+            <div class="btn border-0 button-left button-home" *ngIf="authService.isSessionActive() && userHome" (click)="gotoHome()">
+                <i class=" fa fa-home position-relative"></i>
+            </div>
+        </div>
+        <div class="col-6 px-0 d-flex justify-content-center align-items-center">
+            <a class="title navbar-brand fw-bold mx-0 p-0 user-select-none">
+                {{ 'navBar.header' | translate }}
+            </a>
+        </div>
+        <div class="col-3 px-0 d-flex justify-content-end align-items-center">
+            <app-nav-bar-dropdown *ngIf="!loginStateService.getShowLogin()"></app-nav-bar-dropdown>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,9 @@
+.badge {
+  color: var(--bs-white);
+  background-color: var(--bs-danger);
+  border-radius: 6px;
+
+  .badge-content {
+    top: 1px;
+  }
+}

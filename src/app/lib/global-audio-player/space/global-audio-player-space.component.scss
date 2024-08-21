@@ -1,0 +1,5 @@
+@import '../../../../sass/variables';
+
+div {
+  transition: height $global-audio-player-fade-speed;
+}

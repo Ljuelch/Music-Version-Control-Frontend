@@ -1,0 +1,40 @@
+.bannerContainer {
+  background-color: var(--bs-gray-200);
+
+  &.wholeRowClickable {
+    cursor: pointer;
+  }
+
+  .rightContent {
+    margin-top: -3px;
+  }
+
+  .additionalContent {
+    margin-top: -1px;
+  }
+}
+
+.iconContainer {
+  width: 50px;
+
+  i {
+    font-size: 32px;
+    color: var(--bs-gray-800);
+  }
+}
+
+.action {
+  cursor: pointer;
+
+  .arrow-icon {
+    margin-left: 1px;
+    left: 0;
+    transition: left .2s ease-out;
+  }
+
+  &:hover {
+    .arrow-icon {
+      left: 3px;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.searchbarContainer {
+  .close {
+    cursor: pointer;
+  }
+}
+
+.usertableContainer {
+  &.mh {
+    min-height: 46px;
+  }
+
+  .wholeRowClickable {
+    cursor: pointer;
+  }
+
+  .actions {
+    i {
+      cursor: pointer;
+    }
+  }
+}

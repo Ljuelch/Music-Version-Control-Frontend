@@ -1,0 +1,11 @@
+<div>
+    <img alt="" id="image" height="600" [src]="sanitizedUrl">
+    <div class="crop-actions">
+        <button style="margin-right: 1rem"  mat-flat-button (click)="reset()">
+            {{ 'accountSettings.cropper.reset' | translate }}
+        </button>
+        <button color="primary" mat-flat-button (click)="crop()">
+            {{ 'accountSettings.cropper.select' | translate }}
+        </button>
+    </div>
+</div>

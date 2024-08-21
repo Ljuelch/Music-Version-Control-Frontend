@@ -1,0 +1,39 @@
+.checkbox {
+  margin-left: calc((var(--mdc-checkbox-state-layer-size) - 18px) / -2);
+  padding-left: 6px;
+}
+
+.stemRow {
+  > td {
+    background-color: transparent;
+    transition: background-color .38s;
+
+    &.stemTypeContainer,
+    &.stemNameContainer {
+      cursor: pointer;
+    }
+  }
+
+  &.selected,
+  &:hover {
+    & > td {
+      background-color: var(--bs-gray-100);
+    }
+  }
+
+  .stemType {
+    line-height: 1;
+    background-color: var(--bs-gray-200);
+    color: var(--bs-gray-600);
+    padding: 4px 4px 2px;
+  }
+
+  .actions i {
+    color: var(--bs-gray-700);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--bs-black);
+    }
+  }
+}

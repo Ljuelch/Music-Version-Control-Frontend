@@ -1,0 +1,69 @@
+<div class="container mt-4">
+
+  <div class="w-100 mb-2">
+    <span class="h-0">
+      <span class="h5 mb-0">
+        {{ 'accountSettings.body.header' | translate }}
+      </span>
+    </span>
+  </div>
+  <div class="w-100 mb-4">
+    <span class="mb-0 sub-header">
+      {{ 'accountSettings.body.subHeader' | translate }}
+    </span>
+  </div>
+
+    <div class="row w-100 p-3 bg-white rounded">
+
+      <div class="col-3 bg-white p-3 border-helper">
+          <div class="row">
+            <table class="fs-6 selector">
+              <tr class="cursor-helper" [class.active-row]="selectedSection === 'Account'" (click)="onRowClick('Account')">
+                <div>
+                  <i class="toggle fa fa-user"></i>
+                  <span class="px-3">
+                    {{ 'accountSettings.menu.values.account' | translate }}
+                  </span>
+                </div>
+              </tr>
+              <div class="pt-lg-4">
+                <tr class="cursor-helper" [class.active-row]="selectedSection === 'Security'" (click)="onRowClick('Security')">
+                  <div>
+                    <i class="toggle fa fa-lock"></i>
+                    <span class="px-3">
+                      {{ 'accountSettings.menu.values.security' | translate }}
+                    </span>
+                  </div>
+                </tr>
+              </div>
+              <div class="pt-lg-4">
+                <tr class="cursor-helper" [class.active-row]="selectedSection === 'Notifications'" (click)="onRowClick('Notifications')">
+                  <div>
+                    <i class="toggle fa fa-bell"></i>
+                    <span class="px-3">
+                      {{ 'accountSettings.menu.values.notifications' | translate }}
+                    </span>
+                  </div>
+                </tr>
+              </div>
+              <div class="pt-lg-4">
+                <tr class="cursor-helper" [class.active-row]="selectedSection === 'Help'" (click)="onRowClick('Help')">
+                  <div>
+                    <i class="toggle fa fa-question-circle"></i>
+                    <span class="px-3">
+                      {{ 'accountSettings.menu.values.help' | translate }}
+                    </span>
+                  </div>
+                </tr>
+              </div>
+            </table>
+          </div>
+        </div>
+      <div class="col-9">
+        <app-account-settings *ngIf="selectedSection === 'Account'"></app-account-settings>
+        <app-security-settings *ngIf="selectedSection === 'Security'"></app-security-settings>
+        <app-notification-settings *ngIf="selectedSection === 'Notifications'"></app-notification-settings>
+        <app-info-tab *ngIf="selectedSection === 'Help'"></app-info-tab>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<div *ngIf="!hideOn0 || content !== '0'"
+     class="badge position-absolute w-content user-select-none p-1"
+     [ngClass]="{'pe-none': disablePointerEvents}"
+     [style]="style">
+    <span class="position-relative badge-content" [innerHtml]="content"></span>
+</div>

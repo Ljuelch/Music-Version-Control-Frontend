@@ -1,0 +1,44 @@
+<div class="position-relative">
+  <div class="w-100">
+    <table class="table d-block mb-0">
+      <tbody class="d-block">
+        <tr *ngIf="!projectStems.length">
+          <td class="text-nowrap user-select-none text-black-50 fst-italic border-bottom-0 py-0">
+            {{ 'projectStemsTable.noEntries' | translate }}
+          </td>
+        </tr>
+        <tr *ngFor="let projectStem of projectStems" class="d-flex flex-row stemRow" [ngClass]="{'selected': projectStem.selected}">
+          <td class="p-0">
+            <mat-checkbox
+              #checkbox
+              class="checkbox"
+              [checked]="projectStem.selected"
+              (change)="projectStem.selected=$event.checked;checkboxChange.emit()"
+            ></mat-checkbox>
+          </td>
+          <td class="stemTypeContainer px-0 d-flex align-items-center" (click)="projectStem.selected=!checkbox.checked;checkboxChange.emit()">
+            <div class="stemType w-100 rounded-1 small text-nowrap user-select-none">
+              {{ getTypeName(projectStem) }}
+            </div>
+          </td>
+          <td class="stemNameContainer text-truncate w-100 d-flex align-items-center user-select-none"
+              (click)="projectStem.selected=!checkbox.checked;checkboxChange.emit()"
+              [matTooltip]="projectStem.name"
+              matTooltipPosition="after"
+          >
+            {{ showStemsSplitNamesToggle && showSplitNames ? SPLIT_NAME_PREFIX + ' ' + projectStem.shortName : projectStem.name }}
+          </td>
+          <td class="actions pe-0 d-flex align-items-center text-end">
+            <button class="bg-transparent border-0">
+              <i class="fa fa-download" (click)="downloadStem(projectStem.id)"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overlay position-absolute bg-white d-flex justify-content-center align-items-center" [ngClass]="{'opacity-0 pe-none': !loading}">
+    <mat-spinner [diameter]="36"></mat-spinner>
+  </div>
+</div>

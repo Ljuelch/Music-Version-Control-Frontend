@@ -1,0 +1,28 @@
+@import "cropperjs/dist/cropper.css";
+
+#image {
+    width: 80vh;
+    height: 80vh;
+    display: block;
+    max-width: 80%;
+}
+::ng-deep{
+    .cropper-view-box,
+    .cropper-face {
+      border-radius: 50%;
+    }
+
+    .cropper-view-box {
+        height: 100%;
+        width: 100%;
+        outline: 0;
+        box-shadow: 0 0 0 1px #39f;
+    }
+}
+
+.crop-actions{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}

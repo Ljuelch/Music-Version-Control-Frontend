@@ -1,0 +1,42 @@
+name: Node.js CI FE
+
+on:
+  push:
+    branches: ["main"]
+    
+jobs:
+  build:
+    runs-on: self-hosted
+
+#   strategy:
+#     matrix:
+#       node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+      # Use already installed node and npm
+#   - name: Use Node.js ${{ matrix.node-version }}
+#     uses: actions/setup-node@v3
+#     with:
+#       node-version: ${{ matrix.node-version }}
+#       cache: 'npm'
+
+    - name: Stop pm2 Application
+      run: ./pm2.sh stop
+
+    - name: Install dependencies
+      run: |
+        npm i -g @nestjs/cli
+        npm i
+
+#    - name: Run ESLint
+#      run: eslint . --ext .js,.jsx,.ts,.ts
+
+       # Application is automatically built on start
+#    - name: Build Angular Application
+#      run: npm run build --if-present
+#    - run: npm test
+
+    - name: Start pm2 Application
+      run: ./pm2.sh start

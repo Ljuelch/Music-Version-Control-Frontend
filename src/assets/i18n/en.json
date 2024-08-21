@@ -1,0 +1,478 @@
+{
+  "navBar": {
+    "header": "TRUNCATE"
+  },
+  "login": {
+    "header": "Sign in",
+    "placeholder": {
+      "email": "email or username",
+      "password": "password"
+    },
+    "submit": "login",
+    "link": {
+      "resetPassword": "forgot password",
+      "register": {
+        "prefix": "not registered yet?",
+        "link": "register now"
+      }
+    }
+  },
+  "register": {
+    "header": "Register",
+    "placeholder": {
+      "username": "username",
+      "email": "email",
+      "password": "password",
+      "passwordRepeat": "repeat password",
+      "firstname": "firstname",
+      "lastname": "lastname"
+    },
+    "agb": "I accept the cookies and terms of service",
+    "submit": "register",
+    "link": {
+      "login": {
+        "prefix": "already have an account?",
+        "link": "login"
+      }
+    }
+  },
+  "resetPassword": {
+    "form": {
+      "email": {
+        "header": "Reset Password",
+        "placeholder": {
+          "email": "email"
+        },
+        "submit": "reset password",
+        "link": {
+          "login": "login"
+        }
+      },
+      "password": {
+        "header": "Enter New Password",
+        "placeholder": {
+          "password": "password",
+          "passwordRetype": "re-type password"
+        },
+        "submit": "reset password"
+      }
+    },
+    "status": {
+      "success": {
+        "header": "Check your Inbox!",
+        "text": "We have sent an email with the link to reset password to <b>%email%</b>.",
+        "link": "login"
+      },
+      "errorUser": {
+        "header": "Failed",
+        "text": "User with email <b>%email%</b> does not exist!",
+        "link": "retry"
+      },
+      "errorUnknown": {
+        "header": "ERROR",
+        "text": "An unknown error occurred!",
+        "link": "retry"
+      },
+      "keyInvalid": {
+        "header": "Invalid Link!",
+        "text": "The link is is invalid or expired.",
+        "link": "login"
+      },
+      "resetSuccess": {
+        "header": "Success!",
+        "text": "The password was reset successfully!",
+        "link": "login"
+      },
+      "resetErrorKey": {
+        "header": "Session Expired!",
+        "text": "The session the reset the password is expired!",
+        "link": "login"
+      },
+      "resetErrorUnknown": {
+        "header": "ERROR",
+        "text": "An unknown error occurred!",
+        "link": "login"
+      }
+    }
+  },
+  "dashboard": {
+    "header": {
+      "self": {
+        "header": "Hey, %firstname% %lastname%",
+        "subHeader": "Here's your current work",
+        "newProjectButton": "Add New Project"
+      },
+      "user": {
+        "followButton": {
+          "follow": "follow",
+          "following": "unfollow"
+        }
+      }
+    },
+    "body": {
+      "userNotExists": "This user does not exist!"
+    }
+  },
+  "project": {
+    "versionChanges": {
+      "header": "Changes",
+      "noChanges": "no changes"
+    },
+    "contributors": {
+      "header": "Contributors"
+    },
+    "files": {
+      "header": "Files",
+      "stems": {
+        "header": "Stems"
+      }
+    },
+    "checklist": {
+      "header": "Checklist"
+    }
+  },
+  "userSearch": {
+    "searchbar": {
+      "placeholder": "search"
+    },
+    "userTable": {
+      "noUsers": "no results"
+    }
+  },
+  "globalAudioPlayer": {
+    "link": {
+      "gotoProject": "go to Project"
+    }
+  },
+  "waveformPlayerControlsLarge": {
+    "addMarker": {
+      "tooltip": "add quick-Marker\nKeyboard Shortcut: M"
+    },
+    "quicknoteInput": {
+      "placeholder": "quick note..."
+    }
+  },
+  "allProjectsTable": {
+    "header": "All Projects",
+    "noProjects": "no projects",
+    "filter": {
+      "header": "Sort and filter"
+    },
+    "placeholder": {
+      "audioFile": "NO AUDIO FILE UPLOADED",
+      "bpm": "N/A",
+      "key": "N/A"
+    },
+    "loadMore": "Load more"
+  },
+  "notificationDropdownContent": {
+    "noNotifications": "no notifications",
+    "time": {
+      "now": "now"
+    },
+    "link": {
+      "all": "view all"
+    }
+  },
+  "userDropdownContent": {
+    "link": {
+      "account": "Account",
+      "logout": "Logout"
+    }
+  },
+  "newProjectModal": {
+    "header": "Create New Project",
+    "placeholder": {
+      "projectName": "project name",
+      "bpm": "bpm",
+      "tone": "Tone",
+      "sharpFlat": "Sharp/Flat",
+      "vibe": "Vibe"
+    },
+    "uploadFile": "Upload first Audio file (optional)",
+    "nav": {
+      "cancel": "Cancel",
+      "submit": "Create Project"
+    }
+  },
+  "newProjectVersionModal": {
+    "header": "Create New Project Version",
+    "uploadFile": "Upload new Audio file",
+    "nav": {
+      "cancel": "Cancel",
+      "submit": "Create Version"
+    }
+  },
+  "songCard": {
+    "placeholder": {
+      "bpm": "N/A",
+      "key": "N/A"
+    },
+    "link": {
+      "continue": "continue working"
+    }
+  },
+  "songCardSlider": {
+    "header": "Recent projects",
+    "noProjects": "no projects"
+  },
+  "versionTimeline": {
+    "newVersionPlus": "+ add version"
+  },
+  "projectContributorsTable": {
+    "action": {
+      "setToOwner": "Set as Owner",
+      "setToAdmin": "Set as Admin",
+      "setToSpectator": "Set as Spectator",
+      "remove": "Remove from Project"
+    }
+  },
+  "projectStemsTable": {
+    "noEntries": "no stems uploaded"
+  },
+  "versionChecklist": {
+    "uncheckedEntries": {
+      "noEntries": "no entries"
+    },
+    "done": {
+      "header": {
+        "title": "done",
+        "versionTitle": "version"
+      }
+    },
+    "doneOlder": {
+      "header": {
+        "title": "older",
+        "versionTitle": "version"
+      }
+    }
+  },
+  "versionChangesTable": {
+    "noChanges": "no changes"
+  },
+  "accountSettings": {
+    "body": {
+      "header": "Account Settings",
+      "subHeader": "Change your profile and account settings"
+    },
+    "menu": {
+      "values": {
+        "account": "Account",
+        "security": "Security",
+        "notifications": "Notifications",
+        "help": "Help"
+      }
+    },
+    "account": {
+      "entries": {
+        "username": "username",
+        "firstname": "firstname",
+        "lastname": "lastname",
+        "email": "email",
+        "beatstars": "Beatstars",
+        "description": "short profile description (your motivation, favourite artists, message etc...)",
+        "saveBtn": "Save"
+      }
+    },
+    "security": {
+      "header": "Security Settings",
+      "entries": {
+        "passwordReset": {
+          "description": "click the button to receive a link via email. There you can set a new password",
+          "reset": "reset password"
+        },
+        "dangerZone": {
+          "warning": "! Danger Zone !",
+          "description": "If you click this button, your account and all projects will be permanently deleted and can not be restored after!",
+          "delete": "DELETE ACCOUNT"
+        }
+      }
+    },
+    "cropper": {
+      "reset": "Reset",
+      "select": "Select"
+    },
+    "infoTab": {
+      "header": "Help Section"
+    },
+    "notificationTab": {
+      "header": "Notification Settings"
+    }
+  },
+  "footer": {
+    "entries": {
+      "imprint": "Imprint",
+      "features": "Features",
+      "pricing": "Pricing",
+      "faqs": "FAQs",
+      "about": "About"
+    },
+    "company": {
+      "name": "© 2023 Truncate"
+    }
+  },
+
+
+
+  "_toastr": {
+    "register": {
+      "success": {
+        "title": "Registered",
+        "message": "Your account was sucessfully created. You can now login with the credentials'"
+      },
+      "errorUsername": "Please enter a valid username",
+      "errorEmail": "Please enter a valid email address",
+      "errorUsernameTaken": "This username is already taken",
+      "errorEmailTaken": "This email address is already taken",
+      "errorPassword": "Please enter a valid password",
+      "errorPasswordRepeat": "The two passwords do not match",
+      "errorFirstname": "Please enter your first name",
+      "errorLastname": "Please enter your last name",
+      "errorAgb": "Please accept the terms and conditions",
+      "errorUnknown": "An unknown error occurred"
+    },
+    "login": {
+      "success": {
+        "title": "Logged in",
+        "message": "Welcome back!"
+      },
+      "error": {
+        "title": "Login Failed",
+        "message": "Your username or password is incorrect"
+      }
+    },
+    "newProject": {
+      "success": {
+        "title": "Project Created",
+        "message": "Project \"%projectName%\" has been created successfully"
+      },
+      "fileUploadError": {
+        "title": "Upload Failed",
+        "message": "Error while uploading file \"%fileName%\" to project \"%projectName%\""
+      },
+      "unknownError": {
+        "title": "Unknown Error",
+        "message": "Error while creating project \"%projectName%\""
+      }
+    },
+    "newProjectVersion": {
+      "success": {
+        "title": "Project Version Created",
+        "message": "Project version \"%versionNumber%\" in project \"%projectName%\" has been created successfully"
+      },
+      "fileUploadError": {
+        "title": "Upload Failed",
+        "message": "Error while uploading file \"%fileName%\" to project version \"%versionNumber%\" in project \"%projectName%\""
+      },
+      "unknownError": {
+        "title": "Unknown Error",
+        "message": "Error while creating new project version in project \"%projectName%\""
+      }
+    },
+    "uploadStems": {
+      "success": {
+        "title": "Stems Uploaded",
+        "message": "Stems has been uploaded to project \"%projectName%\""
+      },
+      "error": {
+        "title": "Upload Failed",
+        "message": "Error while uploading stems to project \"%projectName%\""
+      }
+    },
+    "addProjectChecklistEntryMarker": {
+      "error": "Could not add marker (Error: %reason%)"
+    },
+    "deleteProjectChecklistEntry": {
+      "error": "Could not delete checklist entry (Error: %reason%)"
+    },
+    "setProjectChecklistEntryMarkerColor": {
+      "error": "Could not set marker color (Error: %reason%)"
+    },
+    "deleteProjectChecklistEntryMarker": {
+      "error": "Could not delete marker (Error: %reason%)"
+    }
+  },
+
+
+
+  "_topBanner": {
+    "newProject": {
+      "create": {
+        "title": "Creating Project...",
+        "text": "Creating project <b>%projectName%</b>"
+      },
+      "fileUploading": {
+        "title": "Uploading File...",
+        "text": "The file <b>%fileName%</b> is being uploaded to project <b>%projectName%</b>"
+      },
+      "fileUploadError": {
+        "title": "Upload Failed!",
+        "text": "There was an error while uploading file <b>%fileName%</b> to project <b>%projectName%</b>"
+      },
+      "preparing": {
+        "title": "Preparing Project...",
+        "text": "The Project <b>%projectName%</b> is getting prepared"
+      },
+      "unknownError": {
+        "title": "Unknown Error!",
+        "text": "There was an error while creating project <b>%projectName%</b>"
+      }
+    },
+    "newProjectVersion": {
+      "create": {
+        "title": "Creating new Project Version...",
+        "text": "Creating project version in project <b>%projectName%</b>"
+      },
+      "fileUploading": {
+        "title": "Uploading File...",
+        "text": "The file <b>%fileName%</b> is being uploaded to project <b>%projectName% (v%versionNumber%)</b>"
+      },
+      "fileUploadError": {
+        "title": "Upload Failed!",
+        "text": "There was an error while uploading file <b>%fileName%</b> to project <b>%projectName% (v%versionNumber%)</b>"
+      },
+      "preparing": {
+        "title": "Preparing Project Version...",
+        "text": "Version <b>%versionNumber%</b> of Project <b>%projectName%</b> is getting prepared"
+      },
+      "unknownError": {
+        "title": "Unknown Error!",
+        "text": "There was an error while creating project version in project <b>%projectName%</b>"
+      }
+    },
+    "uploadStems": {
+      "uploading": {
+        "title": "Uploading Stems...",
+        "text": "Progress: <b>%doneCount% / %fileCount%</b>"
+      },
+      "error": {
+        "title": "Upload Failed!",
+        "text": "There was an error while uploading the stems to project <b>%projectName%</b>!"
+      }
+    },
+    "downloadStem": {
+      "preparing": {
+        "title": "Preparing Download...",
+        "text": "..."
+      },
+      "downloading": {
+        "title": "Downloading Stem...",
+        "text": "<b>%fileName%</b>"
+      },
+      "error": {
+        "title": "Download Failed!",
+        "text": "There was an error while downloading the stem!"
+      }
+    },
+    "downloadStems": {
+      "downloading": {
+        "title": "Downloading Stems...",
+        "text": "Progress: <b>%doneCount% / %fileCount%</b>"
+      },
+      "error": {
+        "title": "Download Failed!",
+        "text": "There was an error while downloading the stems!"
+      }
+    }
+  }
+}

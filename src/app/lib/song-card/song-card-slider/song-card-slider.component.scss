@@ -1,0 +1,35 @@
+@import "../../../../sass/variables";
+
+.song-card-slider-arrow {
+  cursor: pointer;
+
+  &.disabled {
+    color: var(--bs-gray-600);
+    cursor: default;
+  }
+}
+
+.song-card-slider {
+  .song-card-slider-scoll-container {
+    scroll-behavior: smooth;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .song-card-slider-shadow-container {
+    & > .left {
+      width: 20px;
+      background: linear-gradient(90deg, var(--bs-gray-100) 0%, #0000 100%);
+    }
+
+    & > .right {
+      width: 20px;
+      background: linear-gradient(-90deg, var(--bs-gray-100) 0%, #0000 100%);
+    }
+  }
+}

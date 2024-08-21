@@ -1,0 +1,12 @@
+<div class="row mb-10">
+  <div class="col-12 col-md-7">
+    <h1 class="mb-1 fw-bolder">{{ 'dashboard.header.self.header' | translate: { firstname: userInfo?.firstname, lastname: userInfo?.lastname } }}</h1>
+    <p>{{ 'dashboard.header.self.subHeader' | translate }}</p>
+  </div>
+  <div class="col-12 col-md-5 text-md-end">
+    <button class="btn btn-dark btn-bigger-plus" (click)="plusClick.emit()">
+      <i class="fas fa-plus"></i>
+      <span class="btn-text">{{ 'dashboard.header.self.newProjectButton' | translate }}</span>
+    </button>
+  </div>
+</div>

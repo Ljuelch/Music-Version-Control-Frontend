@@ -1,0 +1,27 @@
+@import "../../../sass/defaults";
+
+.userRow {
+  cursor: pointer;
+
+  &:hover td {
+    background-color: var(--bs-gray-100);
+  }
+}
+
+#contributorActionsDropdown::after {
+  display: none;
+}
+
+.contributorActionsDropdown {
+  .remove {
+    color: var(--bs-danger) !important;
+
+    &:hover {
+      background-color: #ffece8 !important;
+    }
+
+    &.disabled {
+      @include disabled-filter;
+    }
+  }
+}

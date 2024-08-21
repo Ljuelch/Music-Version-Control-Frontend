@@ -1,0 +1,23 @@
+.sub-header {
+  color: lightslategrey;
+}
+
+.border-helper {
+  border-right: 2px solid var(--bs-light-border-subtle);
+}
+
+.selector {
+  color: var(--bs-gray-600)
+}
+
+.cursor-helper {
+  cursor: pointer;
+}
+
+.cursor-helper :hover {
+  color: var(--bs-black);
+}
+
+.active-row {
+  color: var(--bs-black);
+}

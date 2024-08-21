@@ -1,0 +1,124 @@
+.song-card-container {
+  position: relative;
+
+  .song-card {
+    height: 139px;
+    width: 225px;
+    border: 1px solid var(--bs-black);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+
+    .inner-container {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      cursor: default;
+
+      .title {
+        flex: 1;
+        font-weight: bold;
+      }
+
+      .info {
+        flex: 1;
+        display: flex;
+
+        .info-box {
+          border-radius: 18px;
+          background-color: var(--bs-gray-400);
+          width: 74px;
+          height: 23px;
+          margin-right: 1rem;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+
+    .continue-box {
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      flex: 1;
+      background-color: var(--bs-black);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      .continue-text {
+        font-size: 16px;
+      }
+
+      .arrow-icon {
+        margin-left: auto;
+        display: flex;
+        flex-grow: 1;
+        justify-content: flex-end;
+        position: relative;
+        left: 0;
+        transition: left .2s ease-out;
+      }
+
+      &:hover {
+        .arrow-icon {
+          left: 3px;
+        }
+      }
+    }
+  }
+
+  &.empty {
+    .song-card {
+      border-color: var(--bs-gray-500);
+      background-color: var(--bs-gray-200);
+
+      .inner-container {
+        .title {
+          .title-placeholder {
+            margin-top: 2px;
+            width: 64%;
+            height: 12px;
+            background-color: var(--bs-gray-400);
+          }
+        }
+      }
+
+      .continue-box {
+        background-color: var(--bs-gray-600);
+
+        .continue-text {
+          color: var(--bs-gray-500);
+        }
+
+        .arrow-icon {
+          color: var(--bs-gray-500);
+        }
+      }
+    }
+
+    .plus-container {
+      cursor: pointer;
+      position: absolute;
+      left: 0; right: 0;
+      top: 0; bottom: 0;
+      border-radius: 5px;
+      font-size: 32px;
+      background-color: var(--bs-gray-600);
+
+      opacity: 0;
+      transition: opacity .2s, font-size .2s;
+
+      &:hover {
+        font-size: 36px;
+        opacity: .75;
+      }
+
+      &:active {
+        transition: opacity .12s;
+        opacity: .85;
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+.pipe-left-grey {
+    position: relative;
+    padding-left: 10px; /* Adjust padding to create space for the pipe */
+}
+
+.pipe-left-grey::before {
+    $pipe-height: 20px;
+
+    content: "|";
+    position: absolute;
+    left: 0;
+    top: calc(50% - $pipe-height / 2);
+    color: #ccc;
+    font-size: $pipe-height;
+    line-height: 1;
+}
+
+.btn-white {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+}
+
+.btn-pen {
+  cursor: pointer;
+  transition: all .12s;
+
+  &:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 20px #0003;
+  }
+}
+
+.projects-table {
+  &.loading {
+    min-height: 46px;
+  }
+
+  .table-row-top-mobile {
+    border: 1px solid var(--bs-gray-400);
+    font-size: 11px;
+
+    table {
+      background-color: var(--bs-gray-100);
+    }
+  }
+}
+
+.overlayLoadingSpinner {
+  margin-top: -6px;
+}

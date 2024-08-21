@@ -1,0 +1,58 @@
+@import "../../../sass/defaults";
+
+.loading {
+  min-height: 46px;
+}
+
+.entryRow {
+  .user-icon {
+    height: calc(var(--mdc-checkbox-state-layer-size) - 19px);
+    margin-right: 5px;
+    cursor: pointer;
+    transition: filter .2s;
+    filter: invert(0) brightness(1) saturate(.6);
+
+    &.default-user-icon {
+      filter: invert(.3) brightness(1) saturate(1);
+    }
+
+    &:hover {
+      filter: invert(0) brightness(2) saturate(1);
+    }
+  }
+
+  .checkboxContainer {
+    @include disabled-filter;
+    width: 16px;
+
+    .checkbox {
+      margin-left: -5px;
+    }
+  }
+
+  .versionNumber {
+    transition: color .2s ease-out;
+    color: var(--bs-gray-700);
+  }
+
+  &:has(.arrowButton:hover) .versionNumber {
+    color: var(--bs-black);
+  }
+
+  .arrowButton {
+    padding-left: 1px;
+
+    .arrowIcon {
+      margin-left: 0;
+      margin-right: 3px;
+      transition: margin-left .2s ease-out, margin-right .2s ease-out;
+    }
+
+    &:hover {
+      .arrowIcon {
+        margin-left: 3px;
+        margin-right: 0;
+      }
+    }
+  }
+}

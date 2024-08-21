@@ -1,0 +1,122 @@
+@import "../../../sass/variables";
+
+.version-timeline-container {
+  $version-size: 34px;
+  $line-length: 34px;
+  $line-width: 2px;
+
+  .version-timeline-scroll-container {
+    padding: 0 24px $version-size 24px;
+
+    .version-timeline-version-container {
+      width: calc($version-size + $line-length);
+      height: $version-size;
+
+      &:first-child {
+        width: $version-size;
+
+        .version-timeline-hr {
+          display: none;
+        }
+      }
+
+      .version-timeline-version {
+        width: $version-size;
+        height: $version-size;
+
+        background-color: var(--bs-white);
+        color: var(--bs-black);
+        border: $line-width solid var(--bs-black);
+        cursor: pointer;
+
+        &.version-right {
+          border-color: var(--bs-gray-500);
+        }
+
+        &:hover {
+          background-color: var(--bs-gray-300);
+        }
+
+        &.active {
+          background-color: var(--bs-black);
+          color: var(--bs-white);
+          font-weight: bold;
+
+          &:hover {
+            background-color: var(--bs-gray-900);
+          }
+        }
+
+        &.plus {
+          transition: all .04s;
+
+          i {
+            margin-top: 1px;
+          }
+
+          &:active {
+            background-color: var(--bs-black);
+            border-color: var(--bs-black);
+            color: var(--bs-white);
+          }
+
+          &.disabled {
+            pointer-events: none;
+            opacity: .8;
+            background-color: var(--bs-gray-200);
+            color: var(--bs-gray-500);
+            border-color: var(--bs-gray-400);
+          }
+        }
+      }
+
+      .version-timeline-datetime-container {
+        width: 0;
+        top: calc($version-size + 1px);
+        left: calc(-1 * $version-size);
+        color: var(--bs-gray-800);
+
+        .version-timeline-datetime {
+          font-size: 10px;
+          line-height: 11px;
+          width: 80px;
+          left: -22px;
+        }
+      }
+
+      &:has(.version-timeline-version:hover),
+      &:has(.version-timeline-version.active) {
+        .version-timeline-datetime-container {
+          color: var(--bs-black);
+        }
+      }
+    }
+
+    .version-timeline-hr {
+      width: 34px;
+      height: $line-width;
+      background-color: var(--bs-gray-500);
+
+      &.active {
+        height: $line-width;
+        background-color: var(--bs-black);
+      }
+
+      &.version-timeline-hr-last {
+        background-color: var(--bs-gray-400);
+      }
+    }
+  }
+
+  .version-timeline-shadow-container {
+    & > .left {
+      width: 20px;
+      background: linear-gradient(90deg, $global-background 0%, #0000 100%);
+    }
+
+    & > .right {
+      width: 20px;
+      background: linear-gradient(-90deg, $global-background 0%, #0000 100%);
+    }
+  }
+}

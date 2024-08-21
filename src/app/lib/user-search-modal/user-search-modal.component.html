@@ -1,0 +1,11 @@
+<mat-dialog-content>
+  <app-user-search
+    [showClose]="true"
+    [actions]="actions"
+    [wholeRowClickable]="wholeRowClickable"
+    [gotoUser]="gotoUser"
+    [hiddenUsers]="hiddenUsers"
+    (closeClick)="close()"
+    (actionClick)="actionClicked($event)"
+  ></app-user-search>
+</mat-dialog-content>

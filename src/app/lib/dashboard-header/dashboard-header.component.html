@@ -1,0 +1,15 @@
+<div *ngIf="userExists" class="container-x p-3 pb-sm-4 pb-md-3">
+  <app-dashboard-header-self
+    *ngIf="userInfo?.isSelf !== false"
+    [userInfo]="userInfo"
+    [loading]="loading"
+    (plusClick)="plusClick.emit()"
+  />
+  <app-dashboard-header-user
+    *ngIf="userInfo && !userInfo.isSelf"
+    [userInfo]="userInfo"
+    [loading]="loading"
+    (followClick)="followClick.emit($event)"
+    (unfollowClick)="unfollowClick.emit($event)"
+  />
+</div>

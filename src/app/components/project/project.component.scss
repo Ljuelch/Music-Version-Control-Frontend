@@ -1,0 +1,137 @@
+.topBar {
+  min-height: 44px;
+}
+
+#zoomview-container, #overview-container {
+  width: 1000px;
+  height: 100px;
+}
+
+$box-openclose-transition-duration: .45s;
+
+.toggle {
+  cursor: pointer;
+  position: relative;
+  top: -3px;
+  transition: transform $box-openclose-transition-duration;
+
+  &.closed {
+    transform: rotateZ(180deg);
+  }
+
+  &.disabled {
+    color: var(--bs-gray-500);
+    cursor: default;
+  }
+}
+
+.versionChangesContainer {
+  .versionChangesTableContainer {
+    &.transition {
+      transition: max-height $box-openclose-transition-duration;
+    }
+  }
+}
+
+.leftSideContainer {
+  transition: width $box-openclose-transition-duration,
+              padding-right $box-openclose-transition-duration;
+
+  .title > span,
+  .titleVertical {
+    transition: opacity $box-openclose-transition-duration;
+  }
+
+  .titleLeftSideActionOpen {
+    position: relative;
+    bottom: 1px;
+
+    i {
+      cursor: pointer;
+    }
+  }
+
+  .leftSideActionsMd {
+    i {
+      cursor: pointer;
+    }
+  }
+
+  .titleVertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: var(--bs-gray-700);
+    letter-spacing: .8px;
+    position: relative;
+    top: 1px;
+  }
+
+  .countClosed {
+    transition: opacity $box-openclose-transition-duration;
+    width: 15px;
+  }
+
+  .leftSideTableContainer {
+    .overlay {
+      transition: opacity $box-openclose-transition-duration;
+      margin-left: -1rem;
+      margin-right: -1rem;
+    }
+  }
+}
+
+.leftSideContainer {
+  .contributorsBox {
+    transition: min-height $box-openclose-transition-duration;
+  }
+
+  &.open .contributorsBox {
+    min-height: 110px;
+  }
+
+  &.closed .contributorsBox {
+    min-height: 120px;
+  }
+}
+
+.stemsContainer {
+  .selectAllStemsCheckboxContainer {
+    margin-left: calc((var(--mdc-checkbox-state-layer-size) - 18px) / -2);
+
+    .selectAllStemsCheckbox {
+      padding-left: 6px;
+    }
+  }
+
+  .actionsContainer {
+    padding-right: 6px;
+
+    .actions {
+      margin-right: calc((var(--mdc-checkbox-state-layer-size) - 18px) / -2);
+
+      i {
+        color: var(--bs-gray-700);
+        cursor: pointer;
+
+        &:hover {
+          color: var(--bs-black);
+        }
+      }
+    }
+  }
+}
+
+.checklistContainer {
+  transition: width $box-openclose-transition-duration;
+
+  .plusButton {
+    cursor: pointer;
+    position: relative;
+    top: -3px;
+
+    &.disabled {
+      color: var(--bs-gray-500);
+      cursor: default;
+    }
+  }
+}

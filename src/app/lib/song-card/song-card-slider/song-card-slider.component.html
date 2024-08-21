@@ -1,0 +1,40 @@
+<div class="container-x bg-white rounded p-3 mb-5 box-shadow">
+    <div class="row">
+        <h2 class="col-8 fw-bold px-3 mb-2">{{ 'songCardSlider.header' | translate }}</h2>
+        <div class="col-4 text-right text-end">
+          <i class="song-card-slider-arrow fas fa-arrow-left fa-l me-2"
+             [ngClass]="{'disabled': loading || !leftScrollable}"
+             (click)="scrollLeft()"
+          ></i>
+          <i class="song-card-slider-arrow fas fa-arrow-right fa-l ms-1"
+             [ngClass]="{'disabled': loading || !rightScrollable}"
+             (click)="scrollRight()"
+          ></i>
+        </div>
+    </div>
+    <div class="song-card-slider position-relative" [ngClass]="{'py-2': projects.length || showEmpty}">
+      <div #projectBoxesScollContainer class="song-card-slider-scoll-container px-3 overflow-x-scroll" (scroll)="detectChanges()">
+        <div #projectBoxesContainer class="w-content col-12 p-0 d-flex flex-row column-gap-3">
+          <div class="text-black-50 fst-italic" *ngIf="!projects.length && !showEmpty">
+            {{ 'songCardSlider.noProjects' | translate }}
+          </div>
+          <app-song-card [empty]="true"
+                         *ngIf="!projects.length && showEmpty"
+                         (emptyClick)="this.emptyClick.emit()"
+          ></app-song-card>
+          <app-song-card *ngFor="let project of projects"
+                         [project]="project"
+          ></app-song-card>
+        </div>
+      </div>
+
+      <div class="song-card-slider-shadow-container position-absolute w-100 h-100 start-0 top-0 pe-none">
+        <div class="left h-100 float-start" *ngIf="leftScrollable"></div>
+        <div class="right h-100 float-end" *ngIf="rightScrollable"></div>
+      </div>
+
+      <div class="overlay position-absolute bg-white d-flex justify-content-center align-items-center" [ngClass]="{'opacity-0 pe-none': !loading}">
+        <mat-spinner [diameter]="36" class="mb-4"></mat-spinner>
+      </div>
+    </div>
+</div>

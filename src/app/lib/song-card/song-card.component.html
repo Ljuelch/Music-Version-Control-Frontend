@@ -1,0 +1,28 @@
+<div class="song-card-container" [ngClass]="{'empty': empty}">
+  <div class="song-card">
+    <div class="inner-container p-3 pb-0">
+      <div class="title">
+        <div [ngClass]="{'title-placeholder': empty}">
+          <span *ngIf="project">{{ project.name }}</span>
+        </div>
+      </div>
+      <div class="info">
+        <div class="info-box">
+          <span *ngIf="!empty">{{ project.lastVersion.songBPM ? project.lastVersion.songBPM + ' BPM' : ('songCard.placeholder.bpm' | translate) }}</span>
+        </div>
+        <div class="info-box">
+          <span *ngIf="!empty">{{ project.lastVersion.songKey || ('songCard.placeholder.key' | translate) }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="continue-box text-white p-3 pb-0 pt-0 text-center d-flex align-items-center" (click)="projectService.gotoProject(project.id)">
+      <span class="continue-text">{{ 'songCard.link.continue' | translate }}</span>
+      <div class="arrow-icon ml-auto">
+        <i class="fas fa-arrow-right fa-l"></i>
+      </div>
+    </div>
+    <div class="plus-container d-flex justify-content-center align-items-center" *ngIf="empty" (click)="this.emptyClick.emit()">
+      <i class="fas fa-plus pe-none"></i>
+    </div>
+  </div>
+</div>

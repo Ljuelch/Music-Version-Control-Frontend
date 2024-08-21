@@ -1,0 +1,48 @@
+@import "../../../../sass/variables";
+
+.navbar-nav {
+
+  .dropdown-menu[data-bs-popper] {
+    position: absolute;
+    left: unset;
+    right: -12px;
+    margin-top: 0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .128);
+
+    @media (max-width: 460px) {
+      $space: 12px;
+      position: fixed;
+      left: $space;
+      right: $space;
+      top: calc($space + $navbar-height);
+    }
+  }
+
+  .dropdown.show {
+    padding-left: 1.5rem !important;
+    margin-left: -1.5rem !important;
+  }
+
+  .nav-item {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+
+    .nav-link {
+      height: 26px;
+
+      .notification-icon {
+        font-size: 18px;
+      }
+
+      .user-icon {
+        opacity: .8;
+      }
+    }
+  }
+
+  .dropdown-item {
+    &:not(:last-child) {
+      margin-bottom: 1px;
+    }
+  }
+}

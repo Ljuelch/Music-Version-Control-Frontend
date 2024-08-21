@@ -1,0 +1,36 @@
+<div class="version-timeline-container position-relative">
+    <div #scrollContainer class="version-timeline-scroll-container w-100 d-flex flex-nowrap flex-row align-items-center overflow-x-auto">
+        <div class="version-timeline-version-container d-flex flex-nowrap flex-row align-items-center" *ngFor="let version of versions">
+            <div class="version-timeline-hr" [ngClass]="{'active': selectedVersionNumber && version.versionNumber <= selectedVersionNumber}"></div>
+            <div class="version-timeline-version rounded-circle d-flex justify-content-center align-items-center user-select-none"
+                 [ngClass]="{'version-left': selectedVersionNumber && version.versionNumber < selectedVersionNumber, 'version-right': selectedVersionNumber && version.versionNumber > selectedVersionNumber, 'active': version.versionNumber === selectedVersionNumber}"
+                 (click)="versionClick.emit(version.versionNumber)"
+            >
+                {{ version.versionNumber }}
+            </div>
+            <div class="version-timeline-datetime-container position-relative">
+                <div class="version-timeline-datetime position-relative text-center user-select-none">
+                    <span *ngIf="version.date">
+                        {{ version.date.getDate().toString().padStart(2, '0') }}.{{ version.date ? (version.date.getMonth() + 1).toString().padStart(2, '0') : '' }}.{{ version.date.getFullYear() }}<br>{{ version.date.getHours().toString().padStart(2, '0') }}:{{ version.date.getMinutes().toString().padStart(2, '0') }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="version-timeline-hr version-timeline-hr-last w-100"></div>
+        <div class="version-timeline-version-container d-flex flex-nowrap flex-row align-items-center">
+            <div class="version-timeline-hr version-timeline-hr-last"></div>
+            <div class="version-timeline-version plus rounded-circle d-flex justify-content-center align-items-center user-select-none version-right"
+                 [ngClass]="{'disabled': plusButtonDisabled}"
+                 [matTooltip]="'versionTimeline.newVersionPlus' | translate"
+                 matTooltipPosition="below"
+                 (click)="plusClicked()"
+            >
+                <i class="fa fa-plus"></i>
+            </div>
+        </div>
+    </div>
+    <div class="version-timeline-shadow-container position-absolute w-100 h-100 start-0 top-0 pe-none">
+        <div class="left h-100 float-start"></div>
+        <div class="right h-100 float-end"></div>
+    </div>
+</div>

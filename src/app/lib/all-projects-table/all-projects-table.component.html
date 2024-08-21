@@ -1,0 +1,92 @@
+<div #container class="container-x bg-white rounded p-3 mt-3 box-shadow">
+  <div class="row">
+    <h2 class="col-6 fw-bold px-3 py-0">{{ 'allProjectsTable.header' | translate }}</h2>
+    <div class="col-6 text-right text-end">
+      <button class="btn btn-dark btn-white" [disabled]="loading">
+        {{ 'allProjectsTable.filter.header' | translate }} <i class="fa fa-filter"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row px-3 position-relative" [ngClass]="{'py-3': projects.length}">
+    <table class="table align-middle projects-table" [ngClass]="{'mb-0': !projects.length, 'loading': loading}">
+      <tbody>
+        <tr *ngIf="!projects.length">
+          <td class="text-black-50 fst-italic border-bottom-0 pb-0 pt-3 pt-md-0">{{ 'allProjectsTable.noProjects' | translate }}</td>
+        </tr>
+        <tr *ngFor="let project of projects">
+          <td class="d-block d-lg-none table-row-top-mobile p-0 border-start-0 border-end-0 border-top-0">
+            <div class="h6 mb-3 mt-5 d-flex align-items-center">
+              <i class="me-2 text-black-50 small fa" [ngClass]="'fa-'+ROLE_ICON[project.role!]"></i>
+              <span>{{ project.name }}</span>
+            </div>
+            <table class="w-100">
+              <tr>
+                <td class="col-3 text-center align-middle">
+                  <i class="fa fa-calendar-days bg-transparent d-none d-sm-inline me-1"></i>
+                  <span *ngIf="project.lastVersion.date" class="bg-transparent">
+                    {{ project.lastVersion.date.getDate() }}.{{ project.lastVersion.date.getMonth()+1 }}.{{ project.lastVersion.date.getFullYear() }}
+                  </span>
+                </td>
+                <td class="col-3 pipe-left-grey text-center align-middle">
+                  <i class="fa fa-train bg-transparent d-none d-sm-inline me-1"></i>
+                  {{ project.lastVersion.songBPM ? project.lastVersion.songBPM + ' BPM' : ('allProjectsTable.placeholder.bpm' | translate) }}
+                </td>
+                <td class="col-3 pipe-left-grey text-center align-middle">
+                  <i class="fa fa-key bg-transparent d-none d-sm-inline me-1"></i>
+                  {{ project.lastVersion.songKey ? project.lastVersion.songKey : ('allProjectsTable.placeholder.key' | translate) }}
+                </td>
+                <td class="col-3 fw-bold ps-4 fs-6 pipe-left-grey text-end">
+                  <i class="fa fa-pen mx-2 btn-pen" (click)="projectService.gotoProject(project.id)"></i>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td class="waveform-player bg-transparent d-block d-lg-table-cell col-12 col-lg-5 px-0 px-lg-2 pb-lg-1 border-top border-bottom" *ngIf="project.lastVersion.waveformURL !== undefined">
+            <app-waveform-player-controls-small
+              #waveformPlayerControlsSmallComponent
+              [projectVersion]="project.lastVersion"
+              (play$)="pauseAll(waveformPlayerControlsSmallComponent.waveformPlayer)"
+            />
+          </td>
+          <td class="waveform-player bg-transparent d-block d-lg-table-cell col-12 col-lg-5 text-center align-middle p-4 border-top border-bottom" *ngIf="project.lastVersion.waveformURL === undefined">
+              <i class="fa fa-triangle-exclamation"></i> {{ 'allProjectsTable.placeholder.audioFile' | translate }} <i class="fa fa-triangle-exclamation"></i>
+          </td>
+          <td class="col-md-1 bg-transparent pipe-left-grey text-center align-middle d-none d-lg-table-cell border-top border-bottom">
+            <i class="fa fa-calendar-days"></i>&nbsp;
+            <span *ngIf="project.lastVersion.date">
+              {{ project.lastVersion.date.getDate() }}.{{ project.lastVersion.date.getMonth()+1 }}.{{ project.lastVersion.date.getFullYear() }}
+            </span>
+          </td>
+          <td class="col-md-1 bg-transparent pipe-left-grey text-center align-middle d-none d-lg-table-cell border-top border-bottom">
+            <i class="fa fa-train"></i>&nbsp;
+            {{ project.lastVersion.songBPM ? project.lastVersion.songBPM + ' BPM' : ('allProjectsTable.placeholder.bpm' | translate) }}
+          </td>
+          <td class="col-md-1 bg-transparent pipe-left-grey text-center align-middle d-none d-lg-table-cell border-top border-bottom">
+            <i class="fa fa-key"></i>&nbsp;
+            {{ project.lastVersion.songKey ? project.lastVersion.songKey : ('allProjectsTable.placeholder.key' | translate) }}
+          </td>
+          <td class="col-md-3 bg-transparent fw-bold fs-6 pipe-left-grey text-left d-none d-lg-table-cell border-top border-bottom">
+            <div class="d-flex flex-nowrap align-middle align-items-center ps-1 gap-2">
+              <i class="text-muted small fa" [ngClass]="'fa-'+ROLE_ICON[project.role!]"></i>
+              <div class="align-middle d-flex flex-row justify-content-between align-items-center w-100">
+                <span>{{ project.name }}</span>
+                <i class="fa fa-pen mx-2 btn-pen" (click)="projectService.gotoProject(project.id)"></i>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="overlay position-absolute bg-white d-flex justify-content-center" [ngClass]="{'opacity-0 pe-none': !loading}">
+      <mat-spinner [diameter]="36" class="overlayLoadingSpinner"></mat-spinner>
+    </div>
+  </div>
+  <div class="row p-3 pb-0" *ngIf="projects.length">
+    <div class="col-md-12 text-right text-end p-0">
+      <button class="btn btn-dark btn-white" [disabled]="loading">
+        {{ 'allProjectsTable.loadMore' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

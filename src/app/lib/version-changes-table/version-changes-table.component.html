@@ -1,0 +1,51 @@
+<div class="w-100 position-relative overflow-y-hidden" [ngClass]="{'loading': loading}">
+  <table class="table mb-0">
+    <tbody>
+      <tr *ngIf="!entries.length">
+        <td class="text-black-50 fst-italic border-bottom-0 py-0">{{ 'versionChangesTable.noChanges' | translate }}</td>
+      </tr>
+      <tr *ngFor="let entry of entries" class="entryRow">
+        <td class="p-0 align-middle" *ngIf="entry.entry?.user?.username" (click)="tooltip.show()">
+          <img #tooltip="matTooltip"
+               src="/assets/user.png"
+               alt="user icon"
+               class="user-icon default-user-icon"
+               [matTooltip]="entry.entry!.user!.username"
+               matTooltipPosition="left">
+        </td>
+        <td class="checkboxContainer p-0 align-middle bg-transparent">
+          <mat-checkbox
+            class="checkbox pe-none success"
+            [ngClass]="{'danger xmark': entry.entry?.rejected}"
+            [checked]="true"
+            [disabled]="!!(lastVersion && entry.entry?.checkedVersionNumber !== lastVersion.versionNumber - 1)"
+          ></mat-checkbox>
+        </td>
+        <td class="w-100 p-0 align-middle">
+          <span>{{ entry.entry?.text }}</span>
+        </td>
+        <td class="align-middle">
+          <app-marker-chip-list
+            *ngIf="entry.entry?.marker || entry.marker"
+            [marker]="entry.entry?.marker || entry.marker!"
+            [minWrap]="1"
+            [markerDisabled]="true"
+            [mutliSelect]="false"
+          ></app-marker-chip-list>
+        </td>
+        <td class="align-middle py-0">
+          <span class="versionNumber user-select-none">{{ entry.entry!.checkedVersionNumber }}</span>
+        </td>
+        <td class="align-middle p-0">
+          <button class="arrowButton border-0 bg-transparent py-0 pe-0 lh-1" (click)="projectService.gotoProject(this.project_id, entry.entry!.checkedVersionNumber!)">
+            <i class="arrowIcon fas fa-arrow-right fa-l"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="overlay position-absolute bg-white d-flex justify-content-center" [ngClass]="{'opacity-0 pe-none': !loading}">
+    <mat-spinner [diameter]="36"></mat-spinner>
+  </div>
+</div>

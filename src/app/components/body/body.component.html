@@ -1,0 +1,6 @@
+<div class="h-100">
+  <app-top-banner-list></app-top-banner-list>
+  <app-login *ngIf="showLogin"></app-login>
+  <router-outlet *ngIf="!showLogin"></router-outlet>
+  <app-global-audio-player></app-global-audio-player>
+</div>

@@ -1,0 +1,49 @@
+<div class="position-fixed overlay pe-none d-flex justify-content-center">
+  <div #overlayBox
+       class="container overlayFade position-absolute"
+       [ngClass]="{'opacity-0 pe-none': !service.visible}"
+       [style]="'bottom:'+bottomPosition"
+  >
+    <div class="position-relative">
+      <div class="position-absolute overlay rounded-top-4 global-audio-player-shadow min-vh-100 pe-none"></div>
+      <div class="bg-white bg-primary rounded-top-4 pe-auto px-3 py-2">
+        <div class="row pt-1">
+          <div class="col-8 col-sm-9 d-flex flex-row flex-nowrap">
+            <div class="controlButtons me-2">
+              <button class="controlButton rounded-circle"
+                      [disabled]="controlsDisabled"
+                      (click)="service.toggle()"
+              >
+                <span *ngIf="playButtonPlaying">
+                  <i class="fa fa-pause"></i>
+                </span>
+                <span *ngIf="!playButtonPlaying">
+                  <i class="fa fa-play"></i>
+                </span>
+              </button>
+            </div>
+            <div class="projectName ps-1 d-flex align-items-center user-select-none">
+              <span>{{ projectInfo?.name }}</span>
+              <span class="text-black-50 px-2">|</span>
+              <span class="text-black-50">v{{ service.projectVersion?.versionNumber }}</span>
+            </div>
+          </div>
+          <div class="col-4 col-sm-3 text-end ps-0">
+            <span class="projectLink user-select-none" (click)="projectService.gotoProject(projectInfo!.id, service.projectVersion!.versionNumber)">
+              {{ 'globalAudioPlayer.link.gotoProject' | translate }}
+              <i class="arrow-icon fas fa-arrow-right fa-l"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mt-2">
+          <app-seekbar
+            [max]="seekbarMax"
+            [step]="seekbarStep"
+            [value]="seekbarValue"
+            (onSeek)="service.seekEvent($event)"
+          ></app-seekbar>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+.waveform-player-button {
+  width: 28px;
+  height: 28px;
+
+  transition: transform .12s,
+              border-color .12s,
+              color .12s;
+
+  border: 1px solid var(--bs-black);
+  color: var(--bs-black);
+
+  &:hover {
+    transform: scale(1.03);
+    color: var(--bs-gray-700);
+  }
+
+  &:active {
+    color: var(--bs-gray-500);
+  }
+
+  &[disabled] {
+    border-color: var(--bs-gray);
+    color: var(--bs-gray);
+    cursor: default;
+    transform: none;
+  }
+
+  .fa {
+    &.fa-play {
+      padding-left: 2px;
+    }
+  }
+}

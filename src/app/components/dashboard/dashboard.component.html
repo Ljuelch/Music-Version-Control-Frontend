@@ -1,0 +1,16 @@
+<div class="p-sm-4 pt-sm-2">
+  <app-dashboard-header
+    [userInfo]="userInfo"
+    [loading]="loading"
+    (plusClick)="openDialog()"
+    (followClick)="followUser($event)"
+    (unfollowClick)="unfollowUser($event)"
+  />
+  <app-dashboard-body
+    [userInfo]="userInfo"
+    [projects]="projects"
+    [loading]="loading"
+    [songCardShowEmpty]="userInfo?.isSelf !== false"
+    (songCardEmptyClick)="openDialog()"
+  />
+</div>

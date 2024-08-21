@@ -1,0 +1,16 @@
+<div class="position-relative text-center">
+  <input #seekbar type="range"
+         class="align-middle opacity-0"
+         [min]="min" [step]="step"
+         [max]="max" [value]="value"
+         (mousedown)="onDown($event)" (touchstart)="onDown($event)"
+         (mousemove)="onMove($event)" (touchmove)="onMove($event)"
+         (change)="update()" (touchcancel)="onUp($event)"
+         (touchend)="onUp($event)" (mouseup)="onUp($event)"
+  >
+  <div class="track pe-none position-absolute overlay bg-dark rounded-4">
+    <div class="playhead bg-light rounded-4 d-flex text-end align-items-center justify-content-end" [style]="'width:'+playheadWidthCSSValue">
+      <div class="thumb bg-dark rounded-circle"></div>
+    </div>
+  </div>
+</div>

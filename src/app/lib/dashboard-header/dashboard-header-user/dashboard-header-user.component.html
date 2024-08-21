@@ -1,0 +1,15 @@
+<div class="row mb-10">
+  <div class="col-7">
+    <h1 class="mb-1 fw-bolder">{{ userInfo?.username }}</h1>
+    <p>{{ userInfo?.firstname }} {{ userInfo?.lastname }}</p>
+  </div>
+  <div class="col-5 d-flex justify-content-end align-items-center align-items-sm-start">
+    <button class="btn btn-dark bg-black mt-sm-1"
+            [ngClass]="{'bg-transparent text-black': !userInfo?.isFollowing}"
+            (click)="(userInfo?.isFollowing ? unfollowClick : followClick).emit(userInfo?.id)"
+            [disabled]="userInfo?.isFollowing === undefined || loading"
+    >
+      {{ ('dashboard.header.user.followButton.' + (userInfo?.isFollowing ? 'following' : 'follow')) | translate }}
+    </button>
+  </div>
+</div>

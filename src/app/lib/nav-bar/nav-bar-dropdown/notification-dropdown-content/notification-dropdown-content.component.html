@@ -1,0 +1,46 @@
+<div class="notification-dropdown-content px-2 pt-2">
+    <table class="notification-dropdown-list table mb-2 overflow-y-scroll">
+        <tr *ngIf="!notificationService.notifications.length">
+            <td class="no-notifications fst-italic text-center">{{ 'notificationDropdownContent.noNotifications' | translate }}</td>
+        </tr>
+        <tr *ngFor="let notification of notificationService.notifications" class="notification-dropdown-row">
+            <td class="notification-dropdown-row-dot" *ngIf="!notification.isRead">
+                <div class="dot w-0 p-0 ps-1">·</div>
+            </td>
+            <td class="ps-3 py-1 notification-dropdown-row-text" *ngIf="!notification.isRead">
+                <div class="p-0 pe-1 fw-bold unread">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                    <!-- TODO: load notification template by id -->
+                </div>
+            </td>
+            <td class="ps-2 py-1 notification-dropdown-row-text" colspan="2" *ngIf="notification.isRead">
+                <div class="p-0 pe-1">
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                    <!-- TODO: load notification template by id -->
+                </div>
+            </td>
+            <td class="pe-2 py-1 d-flex justify-content-end" [ngClass]="{'unread fw-bold': !notification.isRead}">
+                <span class="bg-transparent p-0" *ngIf="notificationService.getNotificationTimeType(notification) === notificationService.NOTIFICATION_TIME_TYPE_NOW">
+                  {{ 'notificationDropdownContent.time.now' | translate }}
+                </span>
+                <span class="bg-transparent p-0" *ngIf="notificationService.getNotificationTimeType(notification) === notificationService.NOTIFICATION_TIME_TYPE_TODAY">
+                    {{ notification.timestamp.getHours().toString().padStart(2, '0') }}:{{ notification.timestamp.getMinutes().toString().padStart(2, '0') }}
+                </span>
+                <span class="bg-transparent p-0" *ngIf="notificationService.getNotificationTimeType(notification) === notificationService.NOTIFICATION_TIME_TYPE_OLDER">
+                    {{ notification.timestamp.getDate().toString().padStart(2, '0') }}.{{ (notification.timestamp.getMonth()+1).toString().padStart(2, '0') }}.
+                </span>
+            </td>
+        </tr>
+    </table>
+    <div class="notification-dropdown-nav row mt-1 py-2">
+        <div class="col-2 ps-2 pe-0">
+            <!--<span class="{{ !notificationService.notifications.length ? '' : 'fw-bold' }}">{{ notificationService.notifications.length }}</span>-->
+        </div>
+        <div class="col-10 ps-0 d-flex justify-content-end">
+            <a class="notification-dropdown-linktoall text-decoration-none" routerLink="/notifications" (click)="gotoNotifications()">
+                <span class="pe-2">{{ 'notificationDropdownContent.link.all' | translate }}</span>
+                <i class="arrow-icon fas fa-arrow-right fa-l"></i>
+            </a>
+        </div>
+    </div>
+</div>

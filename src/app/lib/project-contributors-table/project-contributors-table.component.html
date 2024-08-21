@@ -1,0 +1,65 @@
+<div class="w-100 overflow-x-hidden">
+  <table class="table mb-0">
+    <tbody>
+      <tr *ngFor="let projectUser of projectUsers" class="userRow">
+        <td (click)="userInfoService.gotoUser(projectUser.user.id)">
+          <i class="fa" [ngClass]="'fa-'+ROLE_ICON[projectUser.role]"></i>
+        </td>
+        <td class="text-start text-nowrap fw-bold" (click)="userInfoService.gotoUser(projectUser.user.id)">
+          {{ projectUser.user.username }}
+        </td>
+        <td class="text-start text-nowrap text-muted" (click)="userInfoService.gotoUser(projectUser.user.id)">
+          {{ projectUser.user.firstname }} {{ projectUser.user.lastname }}
+        </td>
+        <td>
+          <div ngbDropdown class="d-inline-block h-0" container="body">
+            <button ngbDropdownToggle id="contributorActionsDropdown" class="bg-transparent border-0" [ngClass]="{'opacity-0 pe-none': projectUser.user.isSelf || isSelfRole('S')}">
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+            <div *ngIf="!projectUser.user.isSelf && isSelfRole(['O','A'])"
+                 ngbDropdownMenu
+                 aria-labelledby="contributorActionsDropdown"
+                 class="contributorActionsDropdown"
+            >
+              <button ngbDropdownItem
+                      *ngIf="projectUser.role !== 'O'"
+                      [disabled]="isSelfRole('A')"
+                      (click)="updateUserRole(projectUser.user.id, 'O')"
+              >
+                <i class="fa me-2" [ngClass]="'fa-'+ROLE_ICON.O"></i>
+                <span class="user-select-none">{{ 'projectContributorsTable.action.setToOwner' | translate }}</span>
+              </button>
+
+              <button ngbDropdownItem
+                      *ngIf="projectUser.role !== 'A'"
+                      [disabled]="projectUser.role === 'O' && isSelfRole('A')"
+                      (click)="updateUserRole(projectUser.user.id, 'A')"
+              >
+                <i class="fa me-2" [ngClass]="'fa-'+ROLE_ICON.A"></i>
+                <span class="user-select-none">{{ 'projectContributorsTable.action.setToAdmin' | translate }}</span>
+              </button>
+
+              <button ngbDropdownItem
+                      *ngIf="projectUser.role !== 'S' && isSelfRole(['O','A'])"
+                      [disabled]="projectUser.role === 'O' && isSelfRole('A')"
+                      (click)="updateUserRole(projectUser.user.id, 'S')"
+              >
+                <i class="fa me-2" [ngClass]="'fa-'+ROLE_ICON.S"></i>
+                <span class="user-select-none">{{ 'projectContributorsTable.action.setToSpectator' | translate }}</span>
+              </button>
+
+              <button ngbDropdownItem
+                      class="remove"
+                      [disabled]="isSelfRole('A')"
+                      (click)="removeUserFromProject(projectUser.user.id)"
+              >
+                <i class="fa fa-trash me-2"></i>
+                <span class="user-select-none">{{ 'projectContributorsTable.action.remove' | translate }}</span>
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

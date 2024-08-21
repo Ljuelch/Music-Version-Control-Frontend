@@ -1,0 +1,44 @@
+<div class="searchbarContainer">
+  <div class="d-flex flex-row">
+    <input
+      #searchbar
+      type="search"
+      class="mx-auto form-control w-100 custom-height"
+      [placeholder]="'userSearch.searchbar.placeholder' | translate"
+      (keyup)="searchbarKeyup()">
+    <div *ngIf="showClose" class="close ps-3 d-flex align-items-center" (click)="closeClick.emit()">
+      <i class="fa fa-xmark ms-1"></i>
+    </div>
+  </div>
+</div>
+
+<div class="usertableContainer position-relative mt-3" [ngClass]="{'mh': loading}">
+  <table class="table mb-0">
+    <tbody>
+      <tr *ngIf="!users.length && searchbar.value.trim()">
+        <td class="p-0 fst-italic text-black-50 ps-3 border-0">
+          {{ 'userSearch.userTable.noUsers' | translate }}</td>
+      </tr>
+      <tr *ngFor="let user of users"
+          [ngClass]="{'wholeRowClickable': wholeRowClickable}"
+          (click)="wholeRowClickable && (gotoUser ? routeToUser(user.id) : actionClick.emit({user_id: user.id}))"
+      >
+        <td class="text-start w-content text-nowrap fw-bold">{{ user.username }}</td>
+        <td class="text-start text-nowrap w-100 ps-4 text-muted">{{ user.firstname }} {{ user.lastname }}</td>
+        <td class="text-end actions">
+          <div class="d-flex flex-row gap-3">
+            <i *ngFor="let action of actions; index as i"
+               class="fa"
+               [ngClass]="'fa-'+action"
+               (click)="!wholeRowClickable && actionClick.emit({user_id: user.id, action: i})"
+            ></i>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="loading" class="overlay bg-white position-absolute ps-3 pt-1 d-none d-lg-block">
+    <mat-spinner [diameter]="36"></mat-spinner>
+  </div>
+</div>

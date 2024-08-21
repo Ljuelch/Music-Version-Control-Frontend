@@ -1,0 +1,33 @@
+<div class="bannerContainer border-bottom border-dark-subtle"
+     [ngClass]="{'wholeRowClickable': !banner.actionText}"
+     (click)="!banner.actionText && actionClick()"
+>
+    <div class="container p-3 px-sm-0">
+      <div class="d-flex flex-row">
+        <div class="iconContainer">
+          <i class="fa" [ngClass]="'fa-'+(banner.icon || DEFAULT_ICON)"></i>
+        </div>
+
+        <div class="rightContent w-100">
+          <div class="d-flex flex-row">
+            <div class="w-100 h6" [innerHtml]="banner.title"></div>
+
+            <div *ngIf="banner.actionText" class="ps-2">
+              <span class="action text-nowrap user-select-none" (click)="actionClick()">
+                {{ banner.actionText }}
+                <i class="arrow-icon fas fa-arrow-right fa-l position-relative"></i>
+              </span>
+            </div>
+          </div>
+
+          <div [innerHtml]="banner.text"></div>
+        </div>
+      </div>
+
+      <div class="additionalContent">
+        <div *ngIf="banner.progress !== undefined" class="pt-3">
+          <mat-progress-bar [mode]="progressBarMode" [value]="progressBarValue"></mat-progress-bar>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="waveform-player-controls-small w-100 d-flex flex-row justify-content-center align-items-center gap-3">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <button class="waveform-player-button rounded-circle"
+                [disabled]="playButtonDisabled"
+                (click)="waveformPlayer?.play()"
+        >
+            <span *ngIf="playButtonPlaying">
+                <i class="fa fa-pause"></i>
+            </span>
+            <span *ngIf="!playButtonPlaying">
+                <i class="fa fa-play"></i>
+            </span>
+        </button>
+    </div>
+    <div class="w-100">
+        <app-waveform-player
+          [projectVersion]="projectVersion"
+          [class]="playerClass"
+          [showZoomview]="false"
+          [loadingSpinnerDiameter]="20"
+          (play$)="play$.emit()"
+        ></app-waveform-player>
+    </div>
+</div>

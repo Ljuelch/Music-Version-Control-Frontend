@@ -1,0 +1,23 @@
+@import "../../../sass/variables";
+
+.navbarHeight {
+  height: $navbar-height;
+}
+
+.title {
+  margin-top: 2px;
+  font-family: Roboto, serif;
+  font-size: 24px;
+}
+
+.button-left {
+  margin-left: calc(-1 * var(--bs-btn-padding-x));
+
+  &.button-search i {
+    top: 3px;
+  }
+
+  &.button-home i {
+    top: 1px;
+  }
+}

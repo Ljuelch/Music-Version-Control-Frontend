@@ -1,0 +1,63 @@
+html, body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.box-shadow {
+  box-shadow: 0 8px 16px #0000000D;
+}
+
+.global-audio-player-shadow {
+  box-shadow: 0 7px 18px #0003;
+}
+
+@mixin disabled-filter {
+  filter: saturate(.41) brightness(1.4);
+}
+
+.overlay {
+  transition: opacity .2s;
+}
+
+.btn-disable-smooth {
+  transition: opacity .1s;
+}
+
+/* Angluar Material Progress Spinner */
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: var(--bs-gray-600);
+}
+
+/* Angular Material Progress Bar */
+.mat-mdc-progress-bar {
+  --mdc-linear-progress-active-indicator-color: var(--bs-gray-900);
+  --mdc-linear-progress-track-color: var(--bs-gray-400);
+}
+
+:root {
+
+  /* Angluar Material Checkbox */
+  --mdc-checkbox-selected-focus-icon-color: var(--bs-black);
+  --mdc-checkbox-selected-hover-icon-color: var(--bs-black);
+  --mdc-checkbox-selected-icon-color: var(--bs-black);
+  --mdc-checkbox-selected-pressed-icon-color: var(--bs-black);
+  --mdc-checkbox-selected-focus-state-layer-color: var(--bs-black);
+  --mdc-checkbox-selected-hover-state-layer-color: var(--bs-black);
+  --mdc-checkbox-selected-pressed-state-layer-color: var(--bs-black);
+
+  --mdc-checkbox-success-selected-focus-icon-color: var(--bs-success);
+  --mdc-checkbox-success-selected-hover-icon-color: var(--bs-success);
+  --mdc-checkbox-success-selected-icon-color: var(--bs-success);
+  --mdc-checkbox-success-selected-pressed-icon-color: var(--bs-success);
+  --mdc-checkbox-success-selected-focus-state-layer-color: var(--bs-success);
+  --mdc-checkbox-success-selected-hover-state-layer-color: var(--bs-success);
+  --mdc-checkbox-success-selected-pressed-state-layer-color: var(--bs-success);
+
+  --mdc-checkbox-danger-selected-focus-icon-color: var(--bs-danger);
+  --mdc-checkbox-danger-selected-hover-icon-color: var(--bs-danger);
+  --mdc-checkbox-danger-selected-icon-color: var(--bs-danger);
+  --mdc-checkbox-danger-selected-pressed-icon-color: var(--bs-danger);
+  --mdc-checkbox-danger-selected-focus-state-layer-color: var(--bs-danger);
+  --mdc-checkbox-danger-selected-hover-state-layer-color: var(--bs-danger);
+  --mdc-checkbox-danger-selected-pressed-state-layer-color: var(--bs-danger);
+
+}

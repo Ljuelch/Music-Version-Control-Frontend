@@ -1,0 +1,66 @@
+.loading {
+  min-height: 46px;
+}
+
+.entryRow {
+  .user-icon {
+    height: calc(var(--mdc-checkbox-state-layer-size) - 19px);
+    margin-right: 5px;
+    cursor: pointer;
+    transition: filter .2s;
+    filter: invert(0) brightness(1);
+
+    &.default-user-icon {
+      filter: invert(.3) brightness(1);
+    }
+
+    &:hover {
+      filter: invert(0) brightness(2);
+    }
+  }
+
+  .checkboxContainer {
+    width: 16px;
+
+    .checkbox {
+      margin-left: -5px;
+    }
+  }
+
+  .text {
+    input {
+      &[disabled] {
+        color: var(--bs-gray-500);
+      }
+    }
+  }
+
+  .actions {
+    .check, .discard {
+      cursor: pointer;
+      font-size: 15px;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .action {
+      color: var(--bs-gray-900);
+
+      &:hover {
+        color: var(--bs-black);
+      }
+
+      &.disabled {
+        background-color: transparent;
+        color: var(--bs-gray-600);
+        cursor: default;
+      }
+
+      &.fading {
+        transition: color .8s, text-shadow .8s;
+      }
+    }
+  }
+}

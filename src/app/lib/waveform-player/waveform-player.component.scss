@@ -1,0 +1,11 @@
+.zoomview-container {
+  width: 1px;
+  height: 120px;
+  background-color: rgba(0, 225, 128, .08); // from: https://github.com/bbc/peaks.js/blob/master/doc/API.md#configuration
+}
+
+.overview-container {
+  width: 1px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, .01); // from: https://github.com/bbc/peaks.js/blob/master/doc/API.md#configuration
+}

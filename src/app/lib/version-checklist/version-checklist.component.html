@@ -1,0 +1,193 @@
+<div class="w-100 position-relative overflow-y-hidden" [ngClass]="{'loading': loading}">
+  <table class="table mb-0" *ngIf="lastVersion?.versionNumber !== versionNumber && !entriesAtVersionNumber()">
+    <tbody>
+      <tr>
+        <td class="user-select-none text-black-50 fst-italic border-bottom-0 py-0">{{ 'versionChecklist.uncheckedEntries.noEntries' | translate }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table actionTable mb-0" [ngClass]="{'mb-3': uncheckedEntries.length && entriesAtVersionNumber()}" *ngIf="lastVersion?.versionNumber === versionNumber">
+    <tbody>
+      <tr *ngIf="!entriesAtVersionNumber() && !uncheckedEntries.length">
+        <td class="user-select-none text-black-50 fst-italic border-bottom-0 py-0">{{ 'versionChecklist.uncheckedEntries.noEntries' | translate }}</td>
+      </tr>
+      <tr *ngFor="let entry of uncheckedEntries" class="entryRow">
+        <td class="p-0 align-middle" *ngIf="!entry.editing && !entry.new && entry.entry?.user?.username" (click)="tooltip.show()">
+          <img
+            #tooltip="matTooltip"
+            src="/assets/user.png"
+            alt="user icon"
+            class="user-icon default-user-icon"
+            [matTooltip]="entry.entry!.user!.username"
+            matTooltipPosition="left">
+        </td>
+        <td class="p-0 align-middle" *ngIf="entry.editing || entry.new">
+          <img
+            src="/assets/user.png"
+            alt="user icon"
+            class="user-icon default-user-icon">
+        </td>
+        <td class="checkboxContainer p-0 align-middle">
+          <mat-checkbox
+            class="checkbox"
+            [disabled]="!allowEditing || (lastVersion?.versionNumber !== versionNumber) || updating || someEditing"
+            (click)="setEntryChecked(entry)"
+          ></mat-checkbox>
+        </td>
+        <td class="text px-0 w-100 align-middle">
+          <div class="d-flex flex-nowrap">
+            <div *ngIf="!allowEditing" class="w-100 py-1">
+              {{ entry.entry?.text }}
+            </div>
+            <input
+              #checklistInput
+              *ngIf="allowEditing"
+              class="w-100 border-0 py-1 bg-transparent"
+              [ngClass]="{'input-editing ps-2': entry.editing!==false}"
+              type="text"
+              [value]="entry.entry?.text"
+              [disabled]="lastVersion?.versionNumber !== versionNumber || updating"
+              (focusin)="startEditing(entry).then()"
+              (focusout)="stopEditing(true)"
+              (keydown.enter)="checklistEntryEnter()"
+              (keydown.escape)="checklistInput.blur();discardEditingEntry()">
+            <div class="d-flex align-items-center justify-content-end ms-2 z-0" *ngIf="(entry.entry?.marker || entry.marker || []).length">
+              <app-marker-chip-list
+                *ngIf="entry.entry?.marker || entry.marker"
+                [marker]="entry.entry?.marker || entry.marker!"
+                [minWrap]="1"
+                [actions]="controls ? MARKER_LIST_ACTIONS : []"
+                [disabled]="!!entry.editing || updating"
+                [mutliSelect]="controls"
+                (click$)="markerClick($event)"
+                (actionClick$)="markerActionClick($event).then()"
+              ></app-marker-chip-list>
+            </div>
+            <div class="actions d-flex align-items-center ps-2" *ngIf="controls && lastVersion?.versionNumber === versionNumber">
+              <div *ngIf="entry.editing === false" class="h-100 d-flex flex-row">
+                <button
+                  *ngFor="let action of actions"
+                  class="action bg-transparent h-100 d-flex align-items-center border-0 rounded-1 px-2"
+                  [ngClass]="action.class"
+                  (click)="entryActionClick($event, action, entry)">
+                  <span class="pe-none" [innerHtml]="action.content"></span>
+                </button>
+              </div>
+              <div *ngIf="entry.editing !== false" class="d-flex flex-row">
+                <i class="check fa fa-check text-success me-2" (click)="submitEditingEntry().then()"></i>
+                <i class="discard fa fa-xmark text-danger me-1" (click)="discardEditingEntry()"></i>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="checkedEntriesAtVersionNumber().length">
+    <div class="border-bottom d-flex flex-row justify-content-between user-select-none">
+      <span class="ps-1 text-muted">{{ 'versionChecklist.done.header.title' | translate }}</span>
+      <span class="pe-1 text-black-50 text-end">{{ 'versionChecklist.done.header.versionTitle' | translate }}</span>
+    </div>
+    <table class="table mb-0">
+      <tbody>
+        <tr *ngFor="let entry of checkedEntriesAtVersionNumber()" class="entryRow">
+          <td class="p-0 align-middle" *ngIf="entry.entry?.user?.username" (click)="tooltip.show()">
+            <img
+              #tooltip="matTooltip"
+              src="/assets/user.png"
+              alt="user icon"
+              class="user-icon default-user-icon"
+              [matTooltip]="entry.entry!.user!.username"
+              matTooltipPosition="left">
+          </td>
+          <td class="checkboxContainer p-0 align-middle">
+            <mat-checkbox
+              #checkbox
+              class="checkbox success"
+              [ngClass]="{'danger xmark': entry.entry?.rejected}"
+              [checked]="true"
+              [disabled]="!allowEditing || (lastVersion?.versionNumber !== versionNumber) || updating || someEditing"
+              (click)="checkedEntryCheckboxClick(checkbox, entry)"
+            ></mat-checkbox>
+          </td>
+          <td class="text p-0 w-100 align-middle" [ngClass]="{'text-decoration-line-through': entry.entry?.rejected, 'text-black-50': updating || entry.entry?.rejected}">
+            {{ entry.entry?.text }}
+          </td>
+          <td class="align-middle">
+            <div class="d-flex align-items-center justify-content-end z-0">
+              <app-marker-chip-list
+                *ngIf="entry.entry?.marker || entry.marker"
+                [marker]="entry.entry?.marker || entry.marker!"
+                [minWrap]="1"
+                [disabled]="updating"
+                [mutliSelect]="false"
+                (click$)="markerClick($event)"
+              ></app-marker-chip-list>
+            </div>
+          </td>
+          <td class="actions py-0 align-middle">
+            <div class="d-flex flex-row">
+              <span class="text-black-50 user-select-none">{{ entry.entry?.checkedVersionNumber }}</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="showOlderTable && checkedEntriesUnderVersionNumber(versionNumber - 1).length" class="mt-2">
+    <div class="border-bottom d-flex flex-row justify-content-between user-select-none">
+      <span class="ps-1 text-muted">{{ 'versionChecklist.doneOlder.header.title' | translate }}</span>
+      <span class="pe-1 text-black-50 text-end">{{ 'versionChecklist.doneOlder.header.versionTitle' | translate }}</span>
+    </div>
+    <table class="table">
+      <tbody>
+      <tr *ngFor="let entry of checkedEntriesUnderVersionNumber(versionNumber - 1)" class="entryRow">
+        <td class="p-0 align-middle" *ngIf="entry.entry?.user?.username" (click)="tooltip.show()">
+          <img
+            #tooltip="matTooltip"
+            src="/assets/user.png"
+            alt="user icon"
+            class="user-icon default-user-icon"
+            [matTooltip]="entry.entry!.user!.username"
+            matTooltipPosition="left">
+        </td>
+        <td class="checkboxContainer p-0 align-middle">
+          <mat-checkbox
+            class="checkbox"
+            [ngClass]="{'xmark': entry.entry?.rejected}"
+            [checked]="true"
+            [disabled]="true"
+          ></mat-checkbox>
+        </td>
+        <td class="text p-0 w-100 align-middle text-black-50" [ngClass]="{'text-decoration-line-through': entry.entry?.rejected}">
+          {{ entry.entry?.text }}
+        </td>
+        <td class="align-middle">
+          <div class="d-flex align-items-center justify-content-end z-0">
+            <app-marker-chip-list
+              *ngIf="entry.entry?.marker || entry.marker"
+              [marker]="entry.entry?.marker || entry.marker!"
+              [minWrap]="1"
+              [disabled]="updating"
+              [mutliSelect]="false"
+              [markerDisabled]="true"
+              (click$)="markerClick($event)"
+            ></app-marker-chip-list>
+          </div>
+        </td>
+        <td class="actions py-0 align-middle">
+          <div class="d-flex flex-row">
+            <span class="text-black-50 user-select-none">{{ entry.entry?.checkedVersionNumber }}</span>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overlay position-absolute bg-white d-flex justify-content-center z-1" [ngClass]="{'opacity-0 pe-none': !loading}">
+    <mat-spinner [diameter]="36"></mat-spinner>
+  </div>
+</div>

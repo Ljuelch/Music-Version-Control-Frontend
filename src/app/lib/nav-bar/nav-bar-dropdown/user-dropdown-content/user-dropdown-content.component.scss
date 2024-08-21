@@ -1,0 +1,9 @@
+.dropdown-item {
+  &.logout {
+    color: var(--bs-danger) !important;
+
+    &:hover {
+      background-color: #ffece8 !important;
+    }
+  }
+}

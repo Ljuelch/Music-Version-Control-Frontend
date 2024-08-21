@@ -1,0 +1,142 @@
+<div class="markerChipListContainer w-content" [ngClass]="{'disabled pe-none': disabled}">
+  <div *ngIf="marker.length<minWrap"
+       class="d-flex flex-nowrap gap-2 w-content"
+  >
+    <app-marker-chip
+      *ngFor="let _marker of marker"
+      class="markerChip"
+      [ngClass]="{'disabled pe-none': markerDisabled}"
+      [color]="'#'+_marker.color"
+      [content]="_marker.start"
+      (click)="markerClick(_marker)"
+    ></app-marker-chip>
+  </div>
+
+  <div *ngIf="marker.length>=minWrap">
+    <div #markerDropdownTrigger="matMenuTrigger"
+         class="markerDropdownButton p-1 rounded-1 border"
+         [matMenuTriggerFor]="markerDropdown"
+    >
+      <div role="button" *ngIf="selectedMarker" class="d-flex gap-1 flex-nowrap align-items-center">
+        <app-marker-chip
+          class="markerChip pe-none"
+          [ngClass]="{'disabled': markerDisabled}"
+          [color]="'#'+selectedMarker.color"
+          [content]="selectedMarker.start"
+        ></app-marker-chip>
+        <span class="ps-1">
+          <i class="fa fa-caret-down"></i>
+        </span>
+        <div class="text-black-50 pe-1 user-select-none">
+          {{ marker.length }}
+        </div>
+      </div>
+    </div>
+    <mat-menu
+      #markerDropdown="matMenu"
+      class="py-0"
+      (closed)="uncheckAllMarker()"
+    >
+      <table class="actionTable table mb-0 last-border-bottom-0" (click)="$event.stopPropagation()">
+        <thead>
+          <tr>
+            <th class="p-0" *ngIf="mutliSelect">
+              <mat-checkbox
+                [checked]="allMarkerChecked"
+                (click)="toggleAllMarkerChecked()"
+              ></mat-checkbox>
+            </th>
+            <th class="p-0" *ngIf="!mutliSelect">
+              <div class="ps-2 ms-1"></div>
+            </th>
+            <th class="py-0 px-2 small align-middle" [colSpan]="1 + (anyMarkerUser ? 1 : 0) + (anyMarkerText ? 1 : 0) - (actions.length ? 0 : 1)">
+              <span *ngIf="checkedMarker.length">
+                {{ checkedMarker.length }}
+              </span>
+            </th>
+            <th class="p-0 pe-2 align-middle text-end" *ngIf="actions.length && checkedMarker.length">
+              <div class="d-flex flex-nowrap">
+                <div *ngFor="let action of actions" [ngClass]="{'opacity-0 pe-none': action.global === false}">
+                  <button
+                    class="action globalAction h-100 border-0 bg-transparent"
+                    [ngClass]="action.class"
+                    [innerHtml]="action.content"
+                    (click)="actionClick(checkedMarker, action)">
+                  </button>
+                </div>
+              </div>
+            </th>
+            <th class="p-0 align-middle text-end" *ngIf="!actions.length || !checkedMarker.length">
+              <button class="action me-2 h-100 border-0 bg-transparent" (click)="closeMarkerDropdown()">
+                <i class="fa fa-xmark"></i>
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let _marker of marker" [ngClass]="{'selected': checkbox.checked}">
+            <td class="p-0">
+              <mat-checkbox
+                #checkbox
+                [ngClass]="{'d-none': !mutliSelect}"
+                [checked]="markerChecked(_marker)"
+                (click)="toggleMarkerChecked(_marker)"
+              ></mat-checkbox>
+            </td>
+            <td class="ps-0" *ngIf="anyMarkerUser">
+              <img
+                *ngIf="_marker.user"
+                #userTooltip="matTooltip"
+                src="/assets/user.png"
+                alt="user icon"
+                class="user-icon default-user-icon"
+                [matTooltip]="_marker.user.username"
+                matTooltipPosition="left"
+                (click)="userTooltip.show()">
+            </td>
+            <td class="p-0 pe-2 align-middle">
+              <div [ngClass]="{'me-1': !anyMarkerText && !actions.length}">
+                <app-marker-chip
+                  class="markerChip"
+                  [ngClass]="{'disabled pe-none': markerDisabled}"
+                  [color]="'#'+_marker.color"
+                  [content]="_marker.start"
+                  (click)="markerClick(_marker)"
+                ></app-marker-chip>
+              </div>
+            </td>
+            <td class="p-0 align-middle" [ngClass]="{'pe-2': actions.length}" *ngIf="anyMarkerText">
+              <span class="small text-nowrap text-mute">
+                {{ _marker.text }}
+              </span>
+            </td>
+            <td class="p-0 pe-2 align-middle text-end" *ngIf="actions.length">
+              <div class="d-flex flex-nowrap">
+                <div *ngFor="let action of actions">
+                  <button
+                    *ngIf="!action.type"
+                    class="action h-100 border-0 bg-transparent"
+                    [ngClass]="action.class"
+                    [innerHtml]="action.content"
+                    (click)="actionClick([_marker], action)">
+                  </button>
+                  <button
+                    *ngIf="action.type === 'COLOR'"
+                    ngx-colors-trigger
+                    class="action h-100 border-0 bg-transparent"
+                    [ngClass]="action.class"
+                    [innerHtml]="action.content"
+                    [hideTextInput]="true"
+                    colorPickerControls="no-alpha"
+                    [ngModel]="'#'+_marker.color"
+                    (ngModelChange)="colorActionClick(_marker, action, $event)">
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-menu>
+  </div>
+</div>
